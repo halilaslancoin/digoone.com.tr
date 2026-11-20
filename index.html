@@ -3,899 +3,671 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>digoone — Yapay Zeka, Trendler ve Yenilikler Blogu</title>
-
-  <!-- Google Fonts: Inter & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script>
-    /**
-     * digoone Tasarım Sistemi Yapılandırması:
-     * - Ana Vurgu: PANTONE 17-4041 TCX Marina (#4F84C4)
-     * - Açık Yüzey: Saf Beyaz (#FFFFFF) ve Hafif Gri (#F8FAFC)
-     * - Koyu Mürekkep: Koyu Arduvaz (#0F172A)
-     */
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            marina: {
-              DEFAULT: '#4F84C4',
-              50: '#F2F6FB',
-              100: '#E1ECF8',
-              200: '#C3D9F1',
-              300: '#96BCE6',
-              400: '#6498D5',
-              500: '#4F84C4',
-              600: '#3B6BA8',
-              700: '#305688',
-              800: '#2A4971',
-              900: '#263F5E',
-            },
-            slateInk: '#0F172A',
-            lightSurface: '#F8FAFC',
-          },
-          boxShadow: {
-            soft: '0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 1px 4px -1px rgba(15, 23, 42, 0.02)',
-            cardHover: '0 14px 32px -6px rgba(79, 132, 196, 0.14), 0 4px 12px -2px rgba(15, 23, 42, 0.04)',
-          },
-        },
-      },
-    };
-  </script>
-
+  <title>digoone — Yenilikler, Yapay Zeka ve Trendler</title>
   <style>
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --marina: #4F84C4;
+      --marina-dark: #3B6CA8;
+      --marina-soft: rgba(79, 132, 196, 0.12);
+      --bg: #FFFFFF;
+      --surface: #FFFFFF;
+      --surface-alt: #F7F9FC;
+      --text: #111827;
+      --text-muted: #5B667A;
+      --border: #E5E9F0;
+      --shadow: 0 10px 30px rgba(17, 24, 39, 0.06);
+      --radius: 16px;
+    }
+
+    body.dark {
+      --bg: #0D1117;
+      --surface: #141B24;
+      --surface-alt: #1A2330;
+      --text: #F3F6FA;
+      --text-muted: #9AA6B8;
+      --border: #263244;
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #FFFFFF;
-      color: #0F172A;
-      overflow-x: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    html.dark body {
-      background-color: #0B111A;
-      color: #F1F5F9;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    /* Yatay kaydırılan sekmelerde scrollbar gizleme */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    button,
+    input {
+      font-family: inherit;
     }
 
-    /* Kart hover animasyonu */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    body.dark header {
+      background: rgba(13, 17, 23, 0.88);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 74px;
+      flex-wrap: wrap;
+      padding: 8px 0;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Logo slot: buraya kendi logo görselinizi yerleştirebilirsiniz */
+    .logo-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-slot img {
+      display: block;
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .hero .logo-slot img {
+      height: 76px;
+    }
+
+    footer .logo-slot img {
+      height: 38px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--text);
+      background: var(--surface-alt);
+    }
+
+    .nav-btn.active {
+      color: #FFFFFF;
+      background: var(--marina);
+      border-color: var(--marina);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      width: 220px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--marina);
+      box-shadow: 0 0 0 3px var(--marina-soft);
+    }
+
+    .icon-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--marina);
+      color: var(--marina);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 56px 0 36px;
+    }
+
+    .hero-card {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 32px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--marina-soft);
+      color: var(--marina);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.85rem, 3.4vw, 2.75rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 12px 0 14px;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      margin-bottom: 24px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--marina);
+      color: #FFFFFF;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--marina-dark);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--marina);
+      color: var(--marina);
+    }
+
+    .featured-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .featured-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .featured-category {
+      color: var(--marina);
+      font-weight: 700;
+    }
+
+    .featured-box h2 {
+      font-size: 1.25rem;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .featured-box p {
+      font-size: 0.94rem;
+      margin-bottom: 18px;
+    }
+
+    .read-link {
+      color: var(--marina);
+      font-weight: 600;
+      font-size: 0.92rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .read-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Section Header */
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin: 28px 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h3 {
+      font-size: 1.4rem;
+      letter-spacing: -0.015em;
+    }
+
+    .result-count {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Posts Grid */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-bottom: 56px;
+    }
+
     .post-card {
-      transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
-                  box-shadow 0.24s cubic-bezier(0.22, 1, 0.36, 1),
-                  border-color 0.24s ease;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
+
     .post-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
+      border-color: var(--marina);
+      box-shadow: var(--shadow);
     }
 
-    /* Modal açılış animasyonu */
-    @keyframes modalReveal {
-      from {
-        opacity: 0;
-        transform: translateY(10px) scale(0.985);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-    .modal-reveal {
-      animation: modalReveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    .post-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
     }
 
-    #scroll-progress {
-      transition: width 0.1s linear;
+    .post-cat {
+      color: var(--marina);
+      font-weight: 700;
+    }
+
+    .post-card h4 {
+      font-size: 1.15rem;
+      line-height: 1.38;
+      margin-bottom: 10px;
+    }
+
+    .post-card p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .post-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 20px;
+      background: var(--surface-alt);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      margin-bottom: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter h3 {
+      font-size: 1.35rem;
+      margin-bottom: 6px;
+    }
+
+    .newsletter p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-form input {
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      min-width: 240px;
+      font-size: 0.94rem;
+      outline: none;
+    }
+
+    .newsletter-form input:focus {
+      border-color: var(--marina);
+    }
+
+    .newsletter-msg {
+      width: 100%;
+      font-size: 0.88rem;
+      color: var(--marina);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 17, 23, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 86vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .close-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .modal h2 {
+      font-size: 1.55rem;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .modal-meta {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-body p {
+      margin-bottom: 14px;
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+        padding: 28px;
+      }
+
+      .posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .posts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box input {
+        width: 160px;
+      }
     }
   </style>
 </head>
-<body class="bg-white dark:bg-[#0B111A] text-[#0F172A] dark:text-slate-100 antialiased selection:bg-marina/20 selection:text-marina-700">
+<body>
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="brand-link" id="homeLink">
+        <span class="logo-slot">
+          <img src="logo.jpeg" alt="digoone logo" />
+        </span>
+      </a>
 
-  <!-- Üst Kaydırma İlerleme Çubuğu -->
-  <div class="fixed top-0 left-0 right-0 z-50 h-[3px] bg-transparent pointer-events-none">
-    <div id="scroll-progress" class="h-full w-0 bg-marina"></div>
-  </div>
+      <nav id="categoryNav" aria-label="Kategoriler">
+        <button class="nav-btn active" data-category="Tümü">Tümü</button>
+        <button class="nav-btn" data-category="Yapay Zeka">Yapay Zeka</button>
+        <button class="nav-btn" data-category="Yenilikler">Yenilikler</button>
+        <button class="nav-btn" data-category="Trendler">Trendler</button>
+        <button class="nav-btn" data-category="Dijital Yaşam">Dijital Yaşam</button>
+      </nav>
 
-  <!-- ===================================================================== -->
-  <!-- ÜST NAVİGASYON ÇUBUĞU                                                -->
-  <!-- ===================================================================== -->
-  <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-[#0B111A]/95 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 sm:h-[72px] gap-3">
-
-        <!-- 3D Apple Pencil + 'D' Amblemi ve 'digoone' Marka Başlığı -->
-        <a href="#top" id="logo-home-link" class="flex items-center gap-2.5 sm:gap-3 group shrink-0 focus:outline-none">
-          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-[0_6px_10px_rgba(79,132,196,0.35)]" aria-hidden="true">
-              <defs>
-                <linearGradient id="marinaBodyGrad" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#6FA0D8" />
-                  <stop offset="55%" stop-color="#4F84C4" />
-                  <stop offset="100%" stop-color="#315B8F" />
-                </linearGradient>
-                <linearGradient id="pencilSpecGrad" x1="16" y1="10" x2="22" y2="50" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8" />
-                  <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.05" />
-                </linearGradient>
-              </defs>
-
-              <!-- 'D' Formu Dış Yay -->
-              <path
-                d="M23 16H35C45.5 16 53 23.16 53 32C53 40.84 45.5 48 35 48H23"
-                stroke="url(#marinaBodyGrad)"
-                stroke-width="7.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <!-- 'D' İçinden Kaleme Geçiş Kıvrımı -->
-              <path
-                d="M42 20.5C34 25 24 31.5 18.5 39.5"
-                stroke="#3A679E"
-                stroke-width="6.5"
-                stroke-linecap="round"
-              />
-              <!-- Apple Pencil Gövde -->
-              <rect x="14.5" y="9" width="8" height="41" rx="4" fill="url(#marinaBodyGrad)" />
-              <!-- Apple Pencil Üst Çizgi -->
-              <line x1="15.4" y1="15.5" x2="21.6" y2="15.5" stroke="#E2EEF9" stroke-width="1.2" stroke-linecap="round" />
-              <!-- 3D Işık Şeridi -->
-              <rect x="16.2" y="11" width="2" height="37" rx="1" fill="url(#pencilSpecGrad)" />
-              <!-- Apple Pencil Konik Uç -->
-              <path d="M14.8 49.5L18.5 57.5L22.2 49.5H14.8Z" fill="#376298" stroke-linejoin="round" />
-              <path d="M17.4 55.1L18.5 57.5L19.6 55.1H17.4Z" fill="#213C5E" />
-            </svg>
-          </div>
-
-          <div class="flex flex-col">
-            <span class="text-xl sm:text-[22px] font-extrabold tracking-tight leading-none text-marina select-none">
-              digoone
-            </span>
-            <span class="text-[10px] font-medium tracking-widest uppercase text-slate-400 dark:text-slate-500 mt-0.5 hidden sm:block">
-              AI &bull; YENİLİKLER &bull; TRENDLER
-            </span>
-          </div>
-        </a>
-
-        <!-- Sağ Kontrol Alanı: Canlı Arama ve Koyu Mod Anahtarı -->
-        <div class="flex items-center gap-2 sm:gap-3 flex-1 justify-end max-w-md">
-          <div class="relative w-full max-w-[215px] sm:max-w-[260px]">
-            <label for="search-input" class="sr-only">Yazılarda ara</label>
-            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.35-4.35"></path>
-            </svg>
-            <input
-              id="search-input"
-              type="search"
-              placeholder="Yapay zeka, trend, araç ara..."
-              class="w-full pl-9 pr-8 py-2 text-sm rounded-xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[#0F172A] dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-marina focus:ring-2 focus:ring-marina/15 transition-all"
-            />
-            <button
-              id="clear-search-btn"
-              type="button"
-              aria-label="Aramayı temizle"
-              class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 p-0.5 rounded-md cursor-pointer"
-            >
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-
-          <button
-            id="theme-toggle-btn"
-            type="button"
-            aria-label="Koyu modu aç veya kapat"
-            title="Koyu Mod / Açık Mod"
-            class="p-2.5 rounded-xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-marina hover:border-marina/40 transition-all shrink-0 cursor-pointer"
-          >
-            <!-- Güneş (Koyu moddayken görünür) -->
-            <svg id="sun-icon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"></path>
-            </svg>
-            <!-- Ay (Açık moddayken görünür) -->
-            <svg id="moon-icon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </button>
+      <div class="header-actions">
+        <div class="search-box">
+          <input type="search" id="searchInput" placeholder="Yazı ara..." aria-label="Yazı ara" />
         </div>
+        <button class="icon-btn" id="themeToggle" type="button">Koyu Mod</button>
       </div>
     </div>
   </header>
 
-  <!-- ===================================================================== -->
-  <!-- ANA İÇERİK                                                            -->
-  <!-- ===================================================================== -->
-  <main id="top" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-
-    <!-- Öne Çıkan Hero Yazı Kartı -->
-    <section aria-label="Öne çıkan yazı" class="mb-10 sm:mb-14">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center bg-[#F8FAFC] dark:bg-slate-900/70 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 lg:p-10 shadow-soft">
-        <div class="lg:col-span-7 space-y-4 sm:space-y-5">
-          <div class="flex flex-wrap items-center gap-2.5">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-marina/10 text-marina border border-marina/20">
-              <span class="w-1.5 h-1.5 rounded-full bg-marina"></span>
-              Öne Çıkan Yazı
-            </span>
-            <span class="text-xs font-medium text-slate-500 dark:text-slate-400">
-              Yapay Zeka &bull; 6 dk okuma &bull; 20 Kasım 2026
-            </span>
-          </div>
-
-          <h1 class="text-2xl sm:text-4xl lg:text-[40px] font-extrabold tracking-tight leading-[1.15] text-[#0F172A] dark:text-white">
-            Otonom Yapay Zeka Ajanları: Fikir Eskizinden Çalışan Ürüne Giden Yeni Rota
-          </h1>
-
-          <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
-            Tek seferlik komutlarla metin veya görsel üretmenin ötesine geçen otonom ajanlar; tasarım, prototipleme ve yazılım geliştirme süreçlerini nasıl hızlandırıyor ve insan yaratıcılığına nasıl yeni bir alan açıyor?
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <div>
+          <span class="logo-slot">
+            <img src="logo.jpeg" alt="digoone logo" />
+          </span>
+          <span class="badge">Yenilikler • Yapay Zeka • Trendler</span>
+          <h1>Dijital dünyadaki değişimi yalın ve net analizlerle takip edin.</h1>
+          <p>
+            digoone; yapay zeka gelişmelerini, yeni nesil araçları, üretim trendlerini ve dijital
+            dünyadaki güncel yenilikleri sade bir editoryal akışta bir araya getirir.
           </p>
-
-          <div class="pt-1 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <span class="w-9 h-9 rounded-full bg-marina text-white font-bold text-xs flex items-center justify-center">
-                EK
-              </span>
-              <div>
-                <p class="text-sm font-semibold text-[#0F172A] dark:text-slate-100 leading-tight">Emre Kaya</p>
-                <p class="text-xs text-slate-500 dark:text-slate-400">digoone Baş Editörü</p>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              data-open-post="ai-agents-blueprint"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-marina hover:bg-marina-600 active:scale-[0.99] text-white text-sm font-semibold shadow-[0_6px_16px_-4px_rgba(79,132,196,0.5)] transition-all cursor-pointer"
-            >
-              <span>Yazıyı Oku</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
-              </svg>
-            </button>
+          <div class="hero-cta">
+            <button class="btn-primary" id="heroReadBtn" type="button">Öne Çıkan Yazıyı Oku</button>
+            <button class="btn-secondary" id="scrollPostsBtn" type="button">Tüm Yazılar</button>
           </div>
         </div>
 
-        <!-- Sağ Görsel Alan (3D Marina Amblem Vitrini) -->
-        <div class="lg:col-span-5">
-          <div
-            data-open-post="ai-agents-blueprint"
-            role="button"
-            tabindex="0"
-            aria-label="Öne çıkan yazıyı aç"
-            class="group relative aspect-[4/3] w-full rounded-2xl bg-white dark:bg-[#0B111A] border border-slate-200/80 dark:border-slate-800 p-6 flex flex-col justify-between cursor-pointer hover:border-marina/50 transition-all"
-          >
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-[11px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-lg bg-[#F8FAFC] dark:bg-slate-900 text-marina border border-slate-200/70 dark:border-slate-800">
-                #4F84C4 MARINA
-              </span>
-              <span class="w-8 h-8 rounded-full bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 flex items-center justify-center text-slate-500 group-hover:text-marina transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"></path>
-                </svg>
-              </span>
-            </div>
-
-            <div class="my-auto flex items-center justify-center">
-              <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 shadow-soft flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                <svg viewBox="0 0 80 80" class="w-20 h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M28 20H43C56.5 20 66 28.95 66 40C66 51.05 56.5 60 43 60H28" stroke="#4F84C4" stroke-width="8.5" stroke-linecap="round" />
-                  <path d="M52 25.5C42 31.5 30 39.5 23 49.5" stroke="#3A679E" stroke-width="7.5" stroke-linecap="round" />
-                  <rect x="18" y="11" width="10" height="50" rx="5" fill="#4F84C4" />
-                  <path d="M18.4 60.5L23 70.5L27.6 60.5H18.4Z" fill="#2F5688" />
-                </svg>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
-              <span>Haftalık Dosya</span>
-              <span class="font-mono text-marina font-medium">digoone.tr</span>
-            </div>
-          </div>
-        </div>
+        <div class="featured-box" id="featuredBox"></div>
       </div>
     </section>
 
-    <!-- Kategori Filtre Sekmeleri -->
-    <section aria-label="Kategori filtreleri" class="mb-8">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-slate-200/70 dark:border-slate-800">
-        <div id="category-tabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
-          <button type="button" data-category="Tümü" class="category-btn px-4 py-2 rounded-full text-sm font-semibold bg-marina text-white transition-all whitespace-nowrap cursor-pointer">
-            Tümü
-          </button>
-          <button type="button" data-category="Yapay Zeka" class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-[#F8FAFC] dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:border-marina/50 hover:text-marina transition-all whitespace-nowrap cursor-pointer">
-            Yapay Zeka
-          </button>
-          <button type="button" data-category="Yenilikler" class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-[#F8FAFC] dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:border-marina/50 hover:text-marina transition-all whitespace-nowrap cursor-pointer">
-            Yenilikler
-          </button>
-          <button type="button" data-category="Dijital Trendler" class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-[#F8FAFC] dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:border-marina/50 hover:text-marina transition-all whitespace-nowrap cursor-pointer">
-            Dijital Trendler
-          </button>
-          <button type="button" data-category="Araçlar" class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-[#F8FAFC] dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:border-marina/50 hover:text-marina transition-all whitespace-nowrap cursor-pointer">
-            Araçlar
-          </button>
-        </div>
-
-        <p id="post-count" class="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 shrink-0">
-          6 yazı gösteriliyor
-        </p>
+    <section id="postsSection">
+      <div class="section-head">
+        <h3 id="sectionTitle">Güncel Yazılar</h3>
+        <span class="result-count" id="resultCount"></span>
       </div>
+      <div class="posts-grid" id="postsGrid"></div>
     </section>
 
-    <!-- Blog Kartları Izgarası -->
-    <section aria-label="Blog yazıları" class="mb-16 sm:mb-20">
-      <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Kartlar JavaScript ile oluşturulur -->
+    <section class="newsletter" id="newsletterSection">
+      <div>
+        <h3>Haftalık digoone Bülteni</h3>
+        <p>Yeni yazılar, yapay zeka özetleri ve öne çıkan trendler doğrudan gelen kutunuza gelsin.</p>
       </div>
-
-      <div id="no-results" class="hidden text-center py-16 px-4 rounded-3xl bg-[#F8FAFC] dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
-        <p class="text-base font-bold text-[#0F172A] dark:text-white mb-1">Eşleşen blog yazısı bulunamadı</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Farklı bir arama kelimesi deneyebilir veya tüm yazılara dönebilirsiniz.</p>
-        <button
-          id="reset-filters-btn"
-          type="button"
-          class="px-4 py-2 rounded-xl bg-marina hover:bg-marina-600 text-white text-sm font-semibold transition-colors cursor-pointer"
-        >
-          Tüm Yazıları Göster
-        </button>
-      </div>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" id="newsletterEmail" placeholder="ornek@alanadi.com" required />
+        <button class="btn-primary" type="submit">Abone Ol</button>
+        <div class="newsletter-msg" id="newsletterMsg" aria-live="polite"></div>
+      </form>
     </section>
-
-    <!-- Bülten Abonelik Bölümü -->
-    <section aria-labelledby="newsletter-title" class="mb-8">
-      <div class="rounded-3xl bg-[#F8FAFC] dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 px-6 py-8 sm:px-10 sm:py-10 shadow-soft">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div class="max-w-xl space-y-1.5">
-            <span class="text-xs font-semibold uppercase tracking-wider text-marina">
-              digoone Haftalık Bülten
-            </span>
-            <h2 id="newsletter-title" class="text-xl sm:text-2xl font-extrabold tracking-tight text-[#0F172A] dark:text-white">
-              Yapay zeka, yeni araçlar ve trendlerden ilk siz haberdar olun
-            </h2>
-            <p class="text-sm text-slate-600 dark:text-slate-400">
-              Her hafta seçilmiş en güncel teknoloji analizleri ve pratik araç önerileri doğrudan e-postanıza gelsin.
-            </p>
-          </div>
-
-          <form id="newsletter-form" class="w-full lg:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-            <label for="newsletter-input" class="sr-only">E-posta adresi</label>
-            <input
-              id="newsletter-input"
-              type="email"
-              required
-              placeholder="adiniz@ornek.com"
-              class="w-full sm:w-72 px-4 py-3 rounded-xl bg-white dark:bg-[#0B111A] border border-slate-200 dark:border-slate-700 text-sm text-[#0F172A] dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-marina focus:ring-2 focus:ring-marina/15 transition-all"
-            />
-            <button
-              type="submit"
-              class="px-6 py-3 rounded-xl bg-marina hover:bg-marina-600 active:scale-[0.99] text-white text-sm font-semibold shadow-[0_6px_16px_-4px_rgba(79,132,196,0.45)] transition-all whitespace-nowrap cursor-pointer"
-            >
-              Abone Ol
-            </button>
-          </form>
-        </div>
-
-        <div id="newsletter-status" class="hidden mt-4 px-4 py-2.5 rounded-xl text-sm font-medium bg-marina/10 text-marina-700 dark:text-marina-300 border border-marina/20"></div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- ===================================================================== -->
-  <!-- FOOTER                                                                -->
-  <!-- ===================================================================== -->
-  <footer class="border-t border-slate-200/70 dark:border-slate-800/80 bg-white dark:bg-[#0B111A]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-marina">digoone</span>
-        <span>&bull;</span>
-        <span>Yapay Zeka, Yenilikler ve Dijital Trendler</span>
-      </div>
-      <p>&copy; <span id="year-span">2026</span> digoone. GitHub Pages yayınına hazır.</p>
+  <footer>
+    <div class="container footer-inner">
+      <span class="logo-slot">
+        <img src="logo.jpeg" alt="digoone logo" />
+      </span>
+      <span>© <span id="yearSpan"></span> digoone. Tüm hakları saklıdır.</span>
     </div>
   </footer>
 
-  <!-- ===================================================================== -->
-  <!-- ETKİLEŞİMLİ MAKALE OKUYUCU MODALI                                      -->
-  <!-- ===================================================================== -->
-  <div
-    id="reader-modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="reader-title"
-    class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/60 backdrop-blur-xs overflow-y-auto"
-  >
-    <div id="reader-backdrop" class="fixed inset-0" aria-hidden="true"></div>
-
-    <article class="modal-reveal relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-[#0F172A] border border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 sm:p-10 my-auto">
-      <div class="flex items-center justify-between gap-4 pb-5 mb-6 border-b border-slate-200/70 dark:border-slate-800">
-        <div class="flex items-center gap-2.5">
-          <span id="reader-category" class="px-3 py-1 rounded-full text-xs font-semibold bg-marina/10 text-marina">
-            Kategori
-          </span>
-          <span id="reader-read-time" class="text-xs text-slate-500 dark:text-slate-400 font-medium">
-            5 dk okuma
-          </span>
-        </div>
-
-        <button
-          id="reader-close-btn"
-          type="button"
-          aria-label="Okuyucuyu kapat"
-          class="p-2 rounded-xl bg-[#F8FAFC] dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-marina border border-slate-200/70 dark:border-slate-700 transition-colors cursor-pointer"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+  <div class="modal-backdrop" id="postModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-top">
+        <span class="post-cat" id="modalCategory"></span>
+        <button class="close-btn" id="closeModalBtn" type="button" aria-label="Kapat">✕</button>
       </div>
-
-      <h2 id="reader-title" class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug text-[#0F172A] dark:text-white mb-4">
-        Başlık
-      </h2>
-
-      <div class="flex items-center justify-between flex-wrap gap-3 mb-7 pb-6 border-b border-slate-200/70 dark:border-slate-800">
-        <div class="flex items-center gap-3">
-          <span id="reader-avatar" class="w-10 h-10 rounded-full bg-marina text-white font-bold text-sm flex items-center justify-center">
-            DG
-          </span>
-          <div>
-            <p id="reader-author" class="text-sm font-semibold text-[#0F172A] dark:text-slate-100">Yazar</p>
-            <p id="reader-date" class="text-xs text-slate-500 dark:text-slate-400">Tarih</p>
-          </div>
-        </div>
-
-        <button
-          id="copy-post-link-btn"
-          type="button"
-          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#F8FAFC] dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 hover:border-marina/50 hover:text-marina transition-all cursor-pointer"
-        >
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-          </svg>
-          <span id="copy-post-link-label">Bağlantıyı Kopyala</span>
-        </button>
-      </div>
-
-      <div id="reader-content" class="space-y-4 text-[15px] sm:text-base leading-relaxed text-slate-700 dark:text-slate-300">
-        <!-- Tam metin paragrafları -->
-      </div>
-
-      <div id="reader-tags" class="mt-8 pt-6 border-t border-slate-200/70 dark:border-slate-800 flex flex-wrap gap-2">
-        <!-- Etiketler -->
-      </div>
-    </article>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- JAVASCRIPT                                                            -->
-  <!-- ===================================================================== -->
   <script>
     const BLOG_POSTS = [
       {
-        id: 'ai-agents-blueprint',
-        title: 'Otonom Yapay Zeka Ajanları: Fikir Eskizinden Çalışan Ürüne Giden Yeni Rota',
-        excerpt: 'Tek seferlik komutlarla metin veya görsel üretmenin ötesine geçen otonom ajanlar; tasarım, prototipleme ve yazılım geliştirme süreçlerini nasıl hızlandırıyor?',
-        category: 'Yapay Zeka',
-        readTime: '6 dk okuma',
-        date: '20 Kasım 2026',
-        author: 'Emre Kaya',
-        initials: 'EK',
-        tags: ['Yapay Zeka', 'Ajanlar', 'Üretkenlik', 'İş Akışı'],
-        paragraphs: [
-          'Yapay zeka araçlarının ilk dalgası çoğunlukla tekil sorulara yanıt veren veya tek bir görsel üreten arayüzlerden oluşuyordu. Bugün ise belirlenen hedefe ulaşmak için alt adımlar oluşturan, araç kullanan ve çıktıyı kendi içinde doğrulayan otonom ajan mimarileri öne çıkıyor.',
-          'Tasarım ve ürün geliştirme ekiplerinde bu yaklaşım, ilk eskizden etkileşimli prototipe kadar geçen süreyi ciddi ölçüde kısaltıyor. Dijital kalemle çizilen sade bir tel kafes bile bileşen kurallarına uygun temiz bir arayüz taslağına dönüştürülebiliyor.',
-          'Ancak hızın artması, yönlendirici bakışın önemini azaltmıyor. Hangi problemin çözülmeye değer olduğunu seçmek, marka dilini korumak ve kullanıcı deneyimini sade tutmak hala insan kararının merkezinde yer alıyor.'
+        id: 1,
+        title: "Kişisel Asistanlardan Otonom İş Akışlarına: Yapay Zekada Yeni Dönem",
+        category: "Yapay Zeka",
+        date: "20 Kasım 2026",
+        readTime: "5 dk okuma",
+        featured: true,
+        excerpt: "Tekil istemlerle çalışan araçlardan bağlamı koruyan, adım adım planlama yapan iş akışlarına geçişi inceliyoruz.",
+        content: [
+          "Yapay zeka araçlarının günlük üretkenlikteki rolü yalnızca metin veya kod taslağı üretmenin ötesine geçti. Modern sistemler artık birden fazla adımı birbirine bağlayarak araştırma, özetleme ve düzenleme süreçlerini tek bir akışta birleştirebiliyor.",
+          "Ancak hız kazancı kadar kontrol edilebilirlik de kritik hale geldi. En verimli kurgularda insan denetimi kritik karar noktalarında devreye girerken, tekrarlayan veri toplama ve biçimlendirme adımları otomasyona bırakılıyor.",
+          "Gelecek dönemde fark yaratan ekipler, en karmaşık modeli kullananlar değil; net girdiler, doğrulanabilir kaynaklar ve sade süreçler kuranlar olacak."
         ]
       },
       {
-        id: 'digital-trends-micro-apps',
-        title: '2026–2027 Dijital Trendleri: Ağır Platformlar Yerine Odaklı Mikro Araçlar',
-        excerpt: 'Her işlevi bünyesinde toplamaya çalışan karmaşık yazılımlar yerine tek bir sorunu hızlıca çözen hafif ve kişiselleştirilmiş dijital araçlar yükseliyor.',
-        category: 'Dijital Trendler',
-        readTime: '5 dk okuma',
-        date: '18 Kasım 2026',
-        author: 'Selin Arslan',
-        initials: 'SA',
-        tags: ['Dijital Trendler', 'Mikro Araçlar', 'Minimalizm', 'Ürün'],
-        paragraphs: [
-          'Uzun süre boyunca dijital ürünler daha fazla menü, daha fazla ayar ve daha fazla eklentiyle büyüme yarışındaydı. Fakat artan bildirim ve arayüz kalabalığı, kullanıcıları yalın ve doğrudan sonuca götüren deneyimlere yöneltiyor.',
-          'Modern üretim araçlarının sunduğu hız sayesinde bireysel üreticiler ve küçük ekipler, kendi çalışma alışkanlıklarına tam uyan küçük araçlar ve yayın alanları kurabiliyor.',
-          'Önümüzdeki dönemin kazananı, en çok özelliği sunan değil; en az sürtünmeyle odaklanmayı sağlayan sistemler olacak.'
-        ]
-      },
-      {
-        id: 'on-device-ai-hardware',
-        title: 'Cihaz İçi Yapay Zeka ve Yeni Nesil Kalem Teknolojilerinde Yenilikler',
-        excerpt: 'Gecikmesiz el yazısı tanıma, akıllı şekil tamamlama ve düşük güç tüketimi; mobil donanımlarda yeni bir standart oluşturuyor.',
-        category: 'Yenilikler',
-        readTime: '5 dk okuma',
-        date: '15 Kasım 2026',
-        author: 'Deniz Yılmaz',
-        initials: 'DY',
-        tags: ['Yenilikler', 'Donanım', 'Cihaz İçi AI', 'Kalem'],
-        paragraphs: [
-          'İşlemlerin bir kısmını bulut yerine doğrudan cihaz üzerindeki NPU birimlerinde çalıştırmak, hem yanıt hızını artırıyor hem de gizlilik avantajı sağlıyor.',
-          'Dijital kalemlerle yapılan çizim ve not alma senaryolarında bu düşük gecikme, kalemin ekran üzerindeki hareketiyle çizginin ekranda belirmesi arasındaki uyumu çok daha doğal hale getiriyor.',
-          'Donanım ile yazılımın bu kadar yakın çalışması, sade görünen araçların arkasında güçlü bir mühendislik katmanı oluşturuyor.'
-        ]
-      },
-      {
-        id: 'ai-research-tools-stack',
-        title: 'Araştırma ve İçerik Üretimi İçin Sade ve Etkili Yapay Zeka Araçları',
-        excerpt: 'Kaynak özetleme, kavram haritalama ve taslak yapılandırma adımlarında zaman kazandıran güncel araç kategorilerini inceliyoruz.',
-        category: 'Araçlar',
-        readTime: '4 dk okuma',
-        date: '12 Kasım 2026',
-        author: 'Kaan Demir',
-        initials: 'KD',
-        tags: ['Araçlar', 'Araştırma', 'İçerik', 'Verimlilik'],
-        paragraphs: [
-          'Yeni bir teknoloji trendini veya sektörel gelişmeyi takip ederken onlarca sekme arasında kaybolmak oldukça kolay. Yapay zeka destekli araştırma araçları, uzun raporları ve makaleleri ana başlıklarına ayırarak ilk tarama süresini kısaltıyor.',
-          'Buna karşın otomatik üretilen özetleri doğrudan yayınlamak yerine kendi notlarınızla süzgeçten geçirmek, yazının özgünlüğünü ve güvenilirliğini korumanın en sağlam yolu.',
-          'En iyi araç seti, en kalabalık liste değil; günlük rutininize en az karmaşa ekleyerek süreklilik kazandıran araçlardan oluşur.'
-        ]
-      },
-      {
-        id: 'visual-hierarchy-marina-white',
-        title: 'Beyaz Zemin ve Tek Vurgu Rengiyle Okunabilir Blog Mimarisi',
-        excerpt: 'Temiz beyaz yüzeyler, belirgin tipografik hiyerarşi ve Marina mavisi vurgularla göz yormayan editoryal bir okuma düzeni nasıl kurulur?',
-        category: 'Dijital Trendler',
-        readTime: '4 dk okuma',
-        date: '09 Kasım 2026',
-        author: 'Zeynep Koç',
-        initials: 'ZK',
-        tags: ['Dijital Trendler', 'Tasarım', 'Okunabilirlik', 'Arayüz'],
-        paragraphs: [
-          'Uzun teknoloji ve trend yazılarını okurken sayfa düzeninin sakin olması, dikkatin metinde kalmasını sağlar. Geniş satır aralıkları, net başlık kontrastı ve sade kart sınırları okuma yorgunluğunu azaltır.',
-          'Saf beyaz (#FFFFFF) zemin ile hafif gri (#F8FAFC) yüzeylerin dengesi, içeriğe yapı kazandırırken PANTONE 17-4041 TCX Marina (#4F84C4) gibi net bir vurgu tonu etkileşim noktalarını belirginleştirir.',
-          'Koyu mod desteği eklendiğinde ise amaç yalnızca renkleri ters çevirmek değil; düşük ışıkta da aynı hiyerarşi ve kontrast dengesini korumaktır.'
-        ]
-      },
-      {
-        id: 'prompt-to-prototype-innovation',
-        title: 'Hızlı Prototipleme Kültürü: Fikirleri Haftalar Yerine Saatlerde Test Etmek',
-        excerpt: 'Soyut fikirleri erken aşamada çalışan küçük arayüzlere dönüştürmek, ürün ve içerik yeniliklerini nasıl olgunlaştırıyor?',
-        category: 'Yenilikler',
-        readTime: '5 dk okuma',
-        date: '05 Kasım 2026',
-        author: 'Emre Kaya',
-        initials: 'EK',
-        tags: ['Yenilikler', 'Prototip', 'Deneyim', 'Teknoloji'],
-        paragraphs: [
-          'Bir fikrin gerçekten işe yarayıp yaramadığını anlamanın en hızlı yolu, onu soyut bir not olmaktan çıkarıp etkileşimli bir taslağa dönüştürmektir.',
-          'Erken prototipler, kullanıcı akışındaki gereksiz adımları ve karmaşık yerleşimleri daha tasarımın ilk günlerinde görünür kılar.',
-          'digoone’da paylaştığımız yenilik ve trend yazılarının ortak noktası da budur: teorik anlatımı, uygulanabilir ve sade örneklerle buluşturmak.'
-        ]
-      }
-    ];
-
-    const state = {
-      category: 'Tümü',
-      query: '',
-      activePostId: null,
-    };
-
-    const postsGrid = document.getElementById('posts-grid');
-    const noResults = document.getElementById('no-results');
-    const postCount = document.getElementById('post-count');
-    const searchInput = document.getElementById('search-input');
-    const clearSearchBtn = document.getElementById('clear-search-btn');
-    const resetFiltersBtn = document.getElementById('reset-filters-btn');
-    const themeToggleBtn = document.getElementById('theme-toggle-btn');
-    const sunIcon = document.getElementById('sun-icon');
-    const moonIcon = document.getElementById('moon-icon');
-    const scrollProgress = document.getElementById('scroll-progress');
-
-    // Okuyucu modal elemanları
-    const readerModal = document.getElementById('reader-modal');
-    const readerBackdrop = document.getElementById('reader-backdrop');
-    const readerCloseBtn = document.getElementById('reader-close-btn');
-    const readerCategory = document.getElementById('reader-category');
-    const readerReadTime = document.getElementById('reader-read-time');
-    const readerTitle = document.getElementById('reader-title');
-    const readerAvatar = document.getElementById('reader-avatar');
-    const readerAuthor = document.getElementById('reader-author');
-    const readerDate = document.getElementById('reader-date');
-    const readerContent = document.getElementById('reader-content');
-    const readerTags = document.getElementById('reader-tags');
-    const copyPostLinkBtn = document.getElementById('copy-post-link-btn');
-    const copyPostLinkLabel = document.getElementById('copy-post-link-label');
-
-    // Bülten formu
-    const newsletterForm = document.getElementById('newsletter-form');
-    const newsletterInput = document.getElementById('newsletter-input');
-    const newsletterStatus = document.getElementById('newsletter-status');
-
-    function escapeHtml(text) {
-      return String(text)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function getFilteredPosts() {
-      const q = state.query.trim().toLowerCase();
-      return BLOG_POSTS.filter((post) => {
-        const matchesCategory = state.category === 'Tümü' || post.category === state.category;
-        if (!matchesCategory) return false;
-        if (!q) return true;
-
-        const haystack = [
-          post.title,
-          post.excerpt,
-          post.category,
-          post.author,
-          ...post.tags,
-          ...post.paragraphs,
-        ]
-          .join(' ')
-          .toLowerCase();
-
-        return haystack.includes(q);
-      });
-    }
-
-    function updateCategoryButtons() {
-      document.querySelectorAll('.category-btn').forEach((btn) => {
-        const active = btn.dataset.category === state.category;
-        if (active) {
-          btn.className =
-            'category-btn px-4 py-2 rounded-full text-sm font-semibold bg-marina text-white transition-all whitespace-nowrap cursor-pointer';
-        } else {
-          btn.className =
-            'category-btn px-4 py-2 rounded-full text-sm font-medium bg-[#F8FAFC] dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:border-marina/50 hover:text-marina transition-all whitespace-nowrap cursor-pointer';
-        }
-      });
-    }
-
-    function renderPosts() {
-      const filtered = getFilteredPosts();
-      postCount.textContent =
-        filtered.length === 0 ? '0 yazı gösteriliyor' : `${filtered.length} yazı gösteriliyor`;
-
-      if (filtered.length === 0) {
-        postsGrid.innerHTML = '';
-        noResults.classList.remove('hidden');
-        return;
-      }
-
-      noResults.classList.add('hidden');
-      postsGrid.innerHTML = filtered
-        .map(
-          (post) => `
-          <article
-            data-open-post="${post.id}"
-            tabindex="0"
-            role="button"
-            aria-label="${escapeHtml(post.title)} yazısını oku"
-            class="post-card group flex flex-col justify-between rounded-2xl bg-white dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 hover:border-marina/50 shadow-soft hover:shadow-cardHover p-6 cursor-pointer focus:outline-none focus:ring-2 focus:ring-marina/30"
-          >
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-4">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-marina/10 text-marina">
-                  ${escapeHtml(post.category)}
-                </span>
-                <span class="font-mono text-xs text-slate-400 dark:text-slate-500">
-                  ${escapeHtml(post.readTime)}
-                </span>
-              </div>
-
-              <h3 class="text-lg sm:text-xl font-bold tracking-tight leading-snug text-[#0F172A] dark:text-white group-hover:text-marina transition-colors mb-2.5">
-                ${escapeHtml(post.title)}
-              </h3>
-
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
-                ${escapeHtml(post.excerpt)}
-              </p>
-
-              <div class="flex flex-wrap gap-1.5 mb-6">
-                ${post.tags
-                  .map(
-                    (tag) =>
-                      `<span class="px-2.5 py-0.5 rounded-md text-[11px] font-medium bg-[#F8FAFC] dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/70 dark:border-slate-700/80">#${escapeHtml(tag)}</span>`
-                  )
-                  .join('')}
-              </div>
-            </div>
-
-            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
-              <div class="flex items-center gap-2.5">
-                <span class="w-7 h-7 rounded-full bg-marina/15 text-marina font-bold text-[11px] flex items-center justify-center">
-                  ${escapeHtml(post.initials)}
-                </span>
-                <div class="leading-tight">
-                  <p class="text-xs font-semibold text-[#0F172A] dark:text-slate-200">${escapeHtml(post.author)}</p>
-                  <p class="text-[11px] text-slate-400 dark:text-slate-500">${escapeHtml(post.date)}</p>
-                </div>
-              </div>
-
-              <span class="inline-flex items-center gap-1 text-xs font-semibold text-marina group-hover:translate-x-0.5 transition-transform">
-                <span>Oku</span>
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </span>
-            </div>
-          </article>
-        `
-        )
-        .join('');
-
-      bindPostOpenTriggers();
-    }
-
-    function openPostReader(postId) {
-      const post = BLOG_POSTS.find((item) => item.id === postId);
-      if (!post) return;
-
-      state.activePostId = post.id;
-      readerCategory.textContent = post.category;
-      readerReadTime.textContent = post.readTime;
-      readerTitle.textContent = post.title;
-      readerAvatar.textContent = post.initials;
-      readerAuthor.textContent = post.author;
-      readerDate.textContent = post.date;
-
-      readerContent.innerHTML = post.paragraphs
-        .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
-        .join('');
-
-      readerTags.innerHTML = post.tags
-        .map(
-          (tag) =>
-            `<span class="px-3 py-1 rounded-lg text-xs font-medium bg-[#F8FAFC] dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700">#${escapeHtml(tag)}</span>`
-        )
-        .join('');
-
-      copyPostLinkLabel.textContent = 'Bağlantıyı Kopyala';
-      readerModal.classList.remove('hidden');
-      readerModal.classList.add('flex');
-      document.body.style.overflow = 'hidden';
-      readerCloseBtn.focus();
-    }
-
-    function closePostReader() {
-      readerModal.classList.add('hidden');
-      readerModal.classList.remove('flex');
-      document.body.style.overflow = '';
-      state.activePostId = null;
-    }
-
-    function bindPostOpenTriggers() {
-      document.querySelectorAll('[data-open-post]').forEach((el) => {
-        el.onclick = () => openPostReader(el.getAttribute('data-open-post'));
-        el.onkeydown = (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openPostReader(el.getAttribute('data-open-post'));
-          }
-        };
-      });
-    }
-
-    function selectCategory(category) {
-      state.category = category;
-      updateCategoryButtons();
-      renderPosts();
-    }
-
-    // Kategori butonları
-    document.querySelectorAll('.category-btn').forEach((btn) => {
-      btn.addEventListener('click', () => selectCategory(btn.dataset.category));
-    });
-
-    // Logo tıklanınca filtreleri sıfırla
-    document.getElementById('logo-home-link').addEventListener('click', () => {
-      state.query = '';
-      searchInput.value = '';
-      clearSearchBtn.classList.add('hidden');
-      selectCategory('Tümü');
-    });
-
-    // Canlı arama
-    searchInput.addEventListener('input', (e) => {
-      state.query = e.target.value;
-      clearSearchBtn.classList.toggle('hidden', state.query.length === 0);
-      renderPosts();
-    });
-
-    clearSearchBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      state.query = '';
-      clearSearchBtn.classList.add('hidden');
-      renderPosts();
-      searchInput.focus();
-    });
-
-    resetFiltersBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      state.query = '';
-      clearSearchBtn.classList.add('hidden');
-      selectCategory('Tümü');
-    });
-
-    // Koyu mod geçişi
-    themeToggleBtn.addEventListener('click', () => {
-      const isDark = document.documentElement.classList.toggle('dark');
-      sunIcon.classList.toggle('hidden', !isDark);
-      moonIcon.classList.toggle('hidden', isDark);
-    });
-
-    // Okuyucu modal kapatma
-    readerCloseBtn.addEventListener('click', closePostReader);
-    readerBackdrop.addEventListener('click', closePostReader);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !readerModal.classList.contains('hidden')) {
-        closePostReader();
-      }
-    });
-
-    // Bağlantı kopyalama
-    copyPostLinkBtn.addEventListener('click', () => {
-      const shareUrl = `${window.location.href.split('#')[0]}#${state.activePostId || 'digoone'}`;
-      try {
-        const input = document.createElement('input');
-        input.value = shareUrl;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-        copyPostLinkLabel.textContent = 'Kopyalandı!';
-        setTimeout(() => {
-          copyPostLinkLabel.textContent = 'Bağlantıyı Kopyala';
-        }, 1800);
-      } catch (_) {
-        copyPostLinkLabel.textContent = 'Kopyalanamadı';
-      }
-    });
-
-    // Bülten formu geri bildirimi
-    newsletterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = newsletterInput.value.trim();
-      if (!email) return;
-
-      newsletterStatus.textContent = `${email} adresi digoone haftalık bültenine kaydedildi.`;
-      newsletterStatus.classList.remove('hidden');
-      newsletterInput.value = '';
-    });
-
-    // Sayfa kaydırma ilerleme çubuğu
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const pct = scrollHeight > 0 ? Math.min(100, (scrollTop / scrollHeight) * 100) : 0;
-      scrollProgress.style.width = `${pct}%`;
-    });
-
-    // Başlangıç
-    document.getElementById('year-span').textContent = new Date().getFullYear();
-    bindPostOpenTriggers();
-    renderPosts();
-  </script>
-</body>
-</html>
+        id: 2,
+        title: "Dijital Tasarımda Sadeleşme: Hız, Odak ve Net Hiyerarşi",
+        category:

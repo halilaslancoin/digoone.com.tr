@@ -50,4 +50,54 @@
       margin-bottom: 4px;
     }
     .tag {
-      font-size:
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: #64748b;
+      margin-bottom: 32px;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+      color: #1e293b;
+    }
+    .bar {
+      width: 220px;
+      height: 3px;
+      background: #e2e8f0;
+      margin: 0 auto 14px;
+      position: relative;
+      border-radius: 999px;
+    }
+    .bar::after {
+      content: "";
+      position: absolute;
+      left: 55%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: #00d2c4;
+      border-radius: 50%;
+    }
+    .soon {
+      font-size: 0.95rem;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-container">
+      <img src="logo.png" alt="DIGOONE Logo" class="logo-img" />
+    </div>
+    <div class="brand">DIGOONE</div>
+    <div class="domain">digoone.com.tr</div>
+    <div class="tag">BLOG</div>
+    <h1>WEB SİTESİ YAPIM AŞAMASINDADIR</h1>
+    <div class="bar"></div>
+    <div class="soon">Çok yakında.</div>
+  </div>
+</body>
+</html>

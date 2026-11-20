@@ -20,19 +20,29 @@
     .card {
       max-width: 560px;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-container {
+      width: 100%;
+      max-width: 220px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
     }
     .logo-img {
-      max-width: 260px;
-      width: 100%;
+      max-width: 100%;
       height: auto;
-      margin-bottom: 24px;
-      display: none; /* logo.png yüklendiğinde aşağıda görünür yapabilirsiniz */
+      object-fit: contain;
     }
     .brand {
       font-size: 2.2rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       margin-bottom: 6px;
+      color: #122338;
     }
     .domain {
       font-size: 1rem;
@@ -40,52 +50,4 @@
       margin-bottom: 4px;
     }
     .tag {
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      color: #64748b;
-      margin-bottom: 36px;
-    }
-    h1 {
-      font-size: 1.35rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      margin-bottom: 24px;
-    }
-    .bar {
-      width: 220px;
-      height: 3px;
-      background: #e2e8f0;
-      margin: 0 auto 14px;
-      position: relative;
-      border-radius: 999px;
-    }
-    .bar::after {
-      content: "";
-      position: absolute;
-      left: 55%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 10px;
-      height: 10px;
-      background: #14b8a6;
-      border-radius: 50%;
-    }
-    .soon {
-      font-size: 0.95rem;
-      color: #334155;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <!-- İsterseniz logo görselinizi 'logo.png' olarak yükleyip aşağıdaki satırı aktif edebilirsiniz -->
-    <!-- <img src="logo.png" alt="DIGOONE Logo" class="logo-img" style="display:inline-block;" /> -->
-    <div class="brand">DIGOONE</div>
-    <div class="domain">digoone.com.tr</div>
-    <div class="tag">BLOG</div>
-    <h1>WEB SİTESİ YAPIM AŞAMASINDADIR</h1>
-    <div class="bar"></div>
-    <div class="soon">Çok yakında.</div>
-  </div>
-</body>
-</html>
+      font-size:

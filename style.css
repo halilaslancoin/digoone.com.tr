@@ -5,7 +5,7 @@
   --text-main: #111827;
   --text-muted: #6b7280;
   --border-color: #e5e7eb;
-  --accent-blue: #4672b4; /* Logodaki mavi tonu */
+  --accent-blue: #4672b4;
   --accent-blue-soft: #eef3fa;
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.03);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.06);
@@ -41,7 +41,7 @@ body {
 }
 
 .container {
-  max-width: 1040px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -56,26 +56,27 @@ body {
 }
 
 .nav-inner {
-  height: 92px;
-  gap: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 82px;
+  gap: 12px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
 }
 
 .brand-logo img {
-  height: 76px;
-  max-width: 260px;
+  height: 60px;
   width: auto;
+  max-width: none;
   object-fit: contain;
   mix-blend-mode: multiply;
-  transform: scale(1.18);
-  transform-origin: left center;
-}
-
-.hero-logo-img {
-  height: 112px;
-  max-width: 340px;
-  width: auto;
-  object-fit: contain;
-  mix-blend-mode: multiply;
+  border-radius: 6px;
 }
 
 body.dark-mode .brand-logo img,
@@ -90,18 +91,21 @@ body.dark-mode .footer-logo img {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  flex-wrap: nowrap;
+  gap: 4px;
 }
 
 .nav-btn {
   background: transparent;
   border: none;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 7px 14px;
+  padding: 6px 11px;
   border-radius: 999px;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.2s;
 }
 
@@ -118,17 +122,19 @@ body.dark-mode .footer-logo img {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  flex-wrap: nowrap;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .search-box input {
   background: var(--bg-page);
   border: 1px solid var(--border-color);
   color: var(--text-main);
-  padding: 8px 14px;
+  padding: 7px 12px;
   border-radius: 999px;
   font-size: 13px;
-  width: 170px;
+  width: 135px;
   outline: none;
 }
 
@@ -141,11 +147,13 @@ body.dark-mode .footer-logo img {
   background: var(--accent-blue);
   color: #fff;
   border: none;
-  padding: 8px 16px;
+  padding: 7px 14px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: opacity 0.2s;
 }
 
@@ -157,11 +165,13 @@ body.dark-mode .footer-logo img {
   background: transparent;
   color: var(--text-main);
   border: 1px solid var(--border-color);
-  padding: 7px 14px;
+  padding: 7px 12px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-dark {
@@ -174,11 +184,11 @@ body.dark-mode .footer-logo img {
   cursor: pointer;
 }
 
-/* Hero Alanı (Alisha Tarzı Merkezlenmiş Editoryal Başlık) */
+/* Hero Alanı */
 .hero {
   background: var(--bg-hero);
   border-bottom: 1px solid var(--border-color);
-  padding: 56px 0 48px;
+  padding: 52px 0 46px;
   text-align: center;
 }
 
@@ -187,16 +197,17 @@ body.dark-mode .footer-logo img {
 }
 
 .hero-avatar-wrap {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   display: flex;
   justify-content: center;
 }
 
 .hero-logo-img {
-  height: 112px;
-  width: 340px;
+  width: 170px;
+  height: auto;
   object-fit: contain;
   mix-blend-mode: multiply;
+  margin-bottom: 4px;
 }
 
 .hero-badge {
@@ -458,7 +469,9 @@ body.dark-mode .footer-logo img {
 }
 
 .footer-logo img {
-  height: 36px;
+  height: 44px;
+  width: auto;
+  object-fit: contain;
   mix-blend-mode: multiply;
 }
 
@@ -587,11 +600,14 @@ body.dark-mode .footer-logo img {
   margin-top: 10px;
 }
 
-@media (max-width: 768px) {
-  .nav-links, .search-box {
+@media (max-width: 860px) {
+  .nav-links,
+  .search-box {
     display: none;
   }
-  .featured-sub-grid, .latest-grid, .editor-form .form-row {
+  .featured-sub-grid,
+  .latest-grid,
+  .editor-form .form-row {
     grid-template-columns: 1fr;
   }
   .featured-main .post-thumb {

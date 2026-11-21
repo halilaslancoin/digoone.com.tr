@@ -56,25 +56,26 @@ body {
 }
 
 .nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 74px;
+  height: 92px;
   gap: 16px;
 }
 
-.brand-logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
 .brand-logo img {
-  height: 62px;
-  width: 210px;
+  height: 76px;
+  max-width: 260px;
+  width: auto;
   object-fit: contain;
   mix-blend-mode: multiply;
-  border-radius: 6px;
+  transform: scale(1.18);
+  transform-origin: left center;
+}
+
+.hero-logo-img {
+  height: 112px;
+  max-width: 340px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 body.dark-mode .brand-logo img,
@@ -192,8 +193,8 @@ body.dark-mode .footer-logo img {
 }
 
 .hero-logo-img {
-  height: 76px;
-  width: auto;
+  height: 112px;
+  width: 340px;
   object-fit: contain;
   mix-blend-mode: multiply;
 }

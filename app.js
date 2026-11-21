@@ -16,7 +16,53 @@ const latestGridEl = document.getElementById('latestGrid');
 const postCountEl = document.getElementById('postCount');
 const latestHeadingEl = document.getElementById('latestHeading');
 
-// HTTP bağlantılarda da çalışabilen güvenli SHA-256 fonksiyonu
+// Sol kenarda sayfa kaydırıldıkça çizgi çizen kalem efekti
+function updateScrollPen() {
+  const pathEl = document.getElementById('scrollPenPath');
+  const tipEl = document.getElementById('scrollPenTip');
+  if (!pathEl || !tipEl || window.innerWidth <= 900) return;
+
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollY = window.scrollY || window.pageYOffset || 0;
+  const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
+
+  const viewH = window.innerHeight;
+  const startY = 95;
+  const endY = Math.max(startY + 40, viewH - 36);
+  const currentY = startY + (endY - startY) * progress;
+
+  // Rastgele ama akıcı görünen kavisli çizgi noktaları (SVG viewBox: 0..90 x 0..1000)
+  const scaleY = 1000 / Math.max(1, viewH);
+  const steps = Math.max(2, Math.floor((currentY - startY) / 28));
+  const points = [];
+
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const py = (startY + (currentY - startY) * t) * scaleY;
+    // Yumuşak sinüs dalgalarıyla doğal el/kalem hareketi hissi
+    const wave = Math.sin(t * Math.PI * 5 + scrollY * 0.008) * 14 +
+                 Math.cos(t * Math.PI * 2.5) * 8;
+    const px = Math.max(12, Math.min(62, 26 + wave));
+    points.push({ x: px, y: py });
+  }
+
+  let d = `M ${points[0].x.toFixed(1)} ${points[0].y.toFixed(1)}`;
+  for (let i = 1; i < points.length; i++) {
+    const prev = points[i - 1];
+    const curr = points[i];
+    const midX = ((prev.x + curr.x) / 2).toFixed(1);
+    const midY = ((prev.y + curr.y) / 2).toFixed(1);
+    d += ` Q ${prev.x.toFixed(1)} ${prev.y.toFixed(1)} ${midX} ${midY}`;
+  }
+  const last = points[points.length - 1];
+  d += ` L ${last.x.toFixed(1)} ${last.y.toFixed(1)}`;
+
+  pathEl.setAttribute('d', d);
+
+  const screenX = (last.x / 90) * 72 + 8;
+  tipEl.style.transform = `translate(${(screenX - 18).toFixed(1)}px, ${(currentY - 22).toFixed(1)}px)`;
+}
+
 function sha256Fallback(str) {
   function rightRotate(value, amount) {
     return (value >>> amount) | (value << (32 - amount));
@@ -129,10 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
   updateAdminUI();
   renderPosts();
   setupEvents();
+  updateScrollPen();
+  window.addEventListener('scroll', updateScrollPen, { passive: true });
+  window.addEventListener('resize', updateScrollPen, { passive: true });
 });
 
 function setupEvents() {
-  // Kategori Filtreleme
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -142,26 +190,22 @@ function setupEvents() {
     });
   });
 
-  // Arama
   document.getElementById('searchInput').addEventListener('input', (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
     renderPosts();
   });
 
-  // Koyu Mod
   document.getElementById('themeToggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     const isDark = document.body.classList.contains('dark-mode');
     document.getElementById('themeToggle').textContent = isDark ? 'Açık Mod' : 'Koyu Mod';
   });
 
-  // Editor Açma
   document.getElementById('openEditorBtn').addEventListener('click', () => {
     if (!isAdminLoggedIn()) return;
     openModal('editorModal');
   });
 
-  // Admin Giriş Formu
   document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const userInput = document.getElementById('adminUsername').value.trim();
@@ -179,7 +223,6 @@ function setupEvents() {
     }
   });
 
-  // Yeni Yazı Formu
   document.getElementById('postForm').addEventListener('submit', (e) => {
     e.preventDefault();
     if (!isAdminLoggedIn()) return;
@@ -271,6 +314,8 @@ function renderPosts() {
   latestGridEl.innerHTML = filtered.length
     ? filtered.map(createCardHTML).join('')
     : '<p style="color:var(--text-muted)">Aradığınız kriterlere uygun yazı bulunamadı.</p>';
+
+  setTimeout(updateScrollPen, 50);
 }
 
 function openPost(id) {

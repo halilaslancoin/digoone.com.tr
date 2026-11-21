@@ -3,671 +3,169 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>digoone — Yenilikler, Yapay Zeka ve Trendler</title>
-  <style>
-    :root {
-      --marina: #4F84C4;
-      --marina-dark: #3B6CA8;
-      --marina-soft: rgba(79, 132, 196, 0.12);
-      --bg: #FFFFFF;
-      --surface: #FFFFFF;
-      --surface-alt: #F7F9FC;
-      --text: #111827;
-      --text-muted: #5B667A;
-      --border: #E5E9F0;
-      --shadow: 0 10px 30px rgba(17, 24, 39, 0.06);
-      --radius: 16px;
-    }
-
-    body.dark {
-      --bg: #0D1117;
-      --surface: #141B24;
-      --surface-alt: #1A2330;
-      --text: #F3F6FA;
-      --text-muted: #9AA6B8;
-      --border: #263244;
-      --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input {
-      font-family: inherit;
-    }
-
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    body.dark header {
-      background: rgba(13, 17, 23, 0.88);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      min-height: 74px;
-      flex-wrap: wrap;
-      padding: 8px 0;
-    }
-
-    .brand-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* Logo slot: buraya kendi logo görselinizi yerleştirebilirsiniz */
-    .logo-slot {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-slot img {
-      display: block;
-      height: 44px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .hero .logo-slot img {
-      height: 76px;
-    }
-
-    footer .logo-slot img {
-      height: 38px;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .nav-btn {
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text-muted);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.92rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      color: var(--text);
-      background: var(--surface-alt);
-    }
-
-    .nav-btn.active {
-      color: #FFFFFF;
-      background: var(--marina);
-      border-color: var(--marina);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .search-box {
-      position: relative;
-    }
-
-    .search-box input {
-      width: 220px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface-alt);
-      color: var(--text);
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .search-box input:focus {
-      border-color: var(--marina);
-      box-shadow: 0 0 0 3px var(--marina-soft);
-    }
-
-    .icon-btn {
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      padding: 9px 13px;
-      border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .icon-btn:hover {
-      border-color: var(--marina);
-      color: var(--marina);
-    }
-
-    /* Hero */
-    .hero {
-      padding: 56px 0 36px;
-    }
-
-    .hero-card {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 40px;
-      display: grid;
-      grid-template-columns: 1.35fr 0.95fr;
-      gap: 32px;
-      align-items: center;
-      box-shadow: var(--shadow);
-    }
-
-    .badge {
-      display: inline-block;
-      background: var(--marina-soft);
-      color: var(--marina);
-      font-weight: 600;
-      font-size: 0.82rem;
-      padding: 6px 12px;
-      border-radius: 999px;
-      margin-bottom: 14px;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.85rem, 3.4vw, 2.75rem);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 12px 0 14px;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.02rem;
-      margin-bottom: 24px;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--marina);
-      color: #FFFFFF;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn-primary:hover {
-      background: var(--marina-dark);
-    }
-
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: border-color 0.2s ease, color 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--marina);
-      color: var(--marina);
-    }
-
-    .featured-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 24px;
-    }
-
-    .featured-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .featured-category {
-      color: var(--marina);
-      font-weight: 700;
-    }
-
-    .featured-box h2 {
-      font-size: 1.25rem;
-      line-height: 1.35;
-      margin-bottom: 10px;
-    }
-
-    .featured-box p {
-      font-size: 0.94rem;
-      margin-bottom: 18px;
-    }
-
-    .read-link {
-      color: var(--marina);
-      font-weight: 600;
-      font-size: 0.92rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .read-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Section Header */
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-      margin: 28px 0 20px;
-      flex-wrap: wrap;
-    }
-
-    .section-head h3 {
-      font-size: 1.4rem;
-      letter-spacing: -0.015em;
-    }
-
-    .result-count {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* Posts Grid */
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-bottom: 56px;
-    }
-
-    .post-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 16px;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .post-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--marina);
-      box-shadow: var(--shadow);
-    }
-
-    .post-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .post-cat {
-      color: var(--marina);
-      font-weight: 700;
-    }
-
-    .post-card h4 {
-      font-size: 1.15rem;
-      line-height: 1.38;
-      margin-bottom: 10px;
-    }
-
-    .post-card p {
-      color: var(--text-muted);
-      font-size: 0.93rem;
-    }
-
-    .post-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-      font-size: 0.84rem;
-      color: var(--text-muted);
-    }
-
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 48px 20px;
-      background: var(--surface-alt);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      color: var(--text-muted);
-    }
-
-    /* Newsletter */
-    .newsletter {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-      margin-bottom: 56px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .newsletter h3 {
-      font-size: 1.35rem;
-      margin-bottom: 6px;
-    }
-
-    .newsletter p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .newsletter-form {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .newsletter-form input {
-      padding: 11px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      min-width: 240px;
-      font-size: 0.94rem;
-      outline: none;
-    }
-
-    .newsletter-form input:focus {
-      border-color: var(--marina);
-    }
-
-    .newsletter-msg {
-      width: 100%;
-      font-size: 0.88rem;
-      color: var(--marina);
-      font-weight: 500;
-      margin-top: 4px;
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    /* Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(13, 17, 23, 0.65);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 100;
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      max-width: 680px;
-      width: 100%;
-      max-height: 86vh;
-      overflow-y: auto;
-      padding: 32px;
-      box-shadow: var(--shadow);
-    }
-
-    .modal-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .close-btn {
-      border: 1px solid var(--border);
-      background: var(--surface-alt);
-      color: var(--text);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-
-    .modal h2 {
-      font-size: 1.55rem;
-      line-height: 1.3;
-      margin-bottom: 12px;
-    }
-
-    .modal-meta {
-      font-size: 0.86rem;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .modal-body p {
-      margin-bottom: 14px;
-      color: var(--text);
-      font-size: 0.98rem;
-    }
-
-    @media (max-width: 920px) {
-      .hero-card {
-        grid-template-columns: 1fr;
-        padding: 28px;
-      }
-
-      .posts-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 620px) {
-      .posts-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .search-box input {
-        width: 160px;
-      }
-    }
-  </style>
+  <title>digoone — Dijital Dünyadaki Değişimi Yalın Analizlerle Takip Edin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="container header-inner">
-      <a href="#" class="brand-link" id="homeLink">
-        <span class="logo-slot">
-          <img src="logo.jpeg" alt="digoone logo" />
-        </span>
+
+  <!-- Üst Menü -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="brand-logo" onclick="resetFilters()">
+        <img src="logo.jpg" alt="digoone logo" />
       </a>
 
-      <nav id="categoryNav" aria-label="Kategoriler">
-        <button class="nav-btn active" data-category="Tümü">Tümü</button>
-        <button class="nav-btn" data-category="Yapay Zeka">Yapay Zeka</button>
-        <button class="nav-btn" data-category="Yenilikler">Yenilikler</button>
-        <button class="nav-btn" data-category="Trendler">Trendler</button>
-        <button class="nav-btn" data-category="Dijital Yaşam">Dijital Yaşam</button>
+      <nav class="nav-links" id="categoryNav">
+        <button class="nav-btn active" data-cat="Tümü">Tümü</button>
+        <button class="nav-btn" data-cat="Yapay Zeka">Yapay Zeka</button>
+        <button class="nav-btn" data-cat="Yenilikler">Yenilikler</button>
+        <button class="nav-btn" data-cat="Trendler">Trendler</button>
+        <button class="nav-btn" data-cat="Dijital Yaşam">Dijital Yaşam</button>
       </nav>
 
-      <div class="header-actions">
+      <div class="nav-actions">
         <div class="search-box">
-          <input type="search" id="searchInput" placeholder="Yazı ara..." aria-label="Yazı ara" />
+          <input type="text" id="searchInput" placeholder="Yazı ara..." />
         </div>
-        <button class="icon-btn" id="themeToggle" type="button">Koyu Mod</button>
+        <button class="btn-outline" id="themeToggle" title="Tema Değiştir">Koyu Mod</button>
+        <button class="btn-primary" id="openEditorBtn">+ Yeni Entry</button>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="hero-card">
-        <div>
-          <span class="logo-slot">
-            <img src="logo.jpeg" alt="digoone logo" />
-          </span>
-          <span class="badge">Yenilikler • Yapay Zeka • Trendler</span>
-          <h1>Dijital dünyadaki değişimi yalın ve net analizlerle takip edin.</h1>
-          <p>
-            digoone; yapay zeka gelişmelerini, yeni nesil araçları, üretim trendlerini ve dijital
-            dünyadaki güncel yenilikleri sade bir editoryal akışta bir araya getirir.
-          </p>
-          <div class="hero-cta">
-            <button class="btn-primary" id="heroReadBtn" type="button">Öne Çıkan Yazıyı Oku</button>
-            <button class="btn-secondary" id="scrollPostsBtn" type="button">Tüm Yazılar</button>
-          </div>
+  <!-- Hero / Editoryal Başlık Alanı -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-avatar-wrap">
+        <img src="logo.jpg" alt="digoone" class="hero-logo-img" />
+      </div>
+      <span class="hero-badge">Yenilikler • Yapay Zeka • Trendler</span>
+      <h1 class="hero-title">DİGOONE</h1>
+      <p class="hero-desc">
+        Dijital dünyadaki değişimi yalın ve net analizlerle takip edin. Yapay zeka gelişmeleri, yeni nesil araçlar ve üretim trendleri tek bir editoryal akışta.
+      </p>
+      <div class="hero-social">
+        <span>Takip et:</span>
+        <a href="#" aria-label="X">𝕏</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Instagram">IG</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ana İçerik Akışı -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Öne Çıkan Yazılar (Alisha Tarzı 1 Büyük + 2 Orta Kart) -->
+      <section id="featuredSection" class="section-block">
+        <h2 class="section-heading">Öne Çıkanlar</h2>
+        <div id="featuredMain" class="featured-main"></div>
+        <div id="featuredSub" class="featured-sub-grid"></div>
+      </section>
+
+      <!-- Güncel Yazılar (2 Sütunlu Grid) -->
+      <section class="section-block">
+        <div class="section-header-row">
+          <h2 class="section-heading" id="latestHeading">Güncel Yazılar</h2>
+          <span class="post-count" id="postCount"></span>
         </div>
+        <div id="latestGrid" class="latest-grid"></div>
+      </section>
 
-        <div class="featured-box" id="featuredBox"></div>
-      </div>
-    </section>
+      <!-- Abonelik Alanı -->
+      <section class="subscribe-box">
+        <h3>Yeni yazılardan haberdar olun</h3>
+        <p>Haftalık yapay zeka ve dijital trend özetleri doğrudan e-posta kutunuza gelsin.</p>
+        <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Aboneliğiniz alındı!');">
+          <input type="email" placeholder="E-posta adresiniz" required />
+          <button type="submit" class="btn-dark">Abone Ol</button>
+        </form>
+      </section>
 
-    <section id="postsSection">
-      <div class="section-head">
-        <h3 id="sectionTitle">Güncel Yazılar</h3>
-        <span class="result-count" id="resultCount"></span>
-      </div>
-      <div class="posts-grid" id="postsGrid"></div>
-    </section>
-
-    <section class="newsletter" id="newsletterSection">
-      <div>
-        <h3>Haftalık digoone Bülteni</h3>
-        <p>Yeni yazılar, yapay zeka özetleri ve öne çıkan trendler doğrudan gelen kutunuza gelsin.</p>
-      </div>
-      <form class="newsletter-form" id="newsletterForm">
-        <input type="email" id="newsletterEmail" placeholder="ornek@alanadi.com" required />
-        <button class="btn-primary" type="submit">Abone Ol</button>
-        <div class="newsletter-msg" id="newsletterMsg" aria-live="polite"></div>
-      </form>
-    </section>
+    </div>
   </main>
 
-  <footer>
+  <!-- Alt Bilgi -->
+  <footer class="footer">
     <div class="container footer-inner">
-      <span class="logo-slot">
-        <img src="logo.jpeg" alt="digoone logo" />
-      </span>
-      <span>© <span id="yearSpan"></span> digoone. Tüm hakları saklıdır.</span>
+      <p class="copyright">© 2026 digoone.com.tr — Tüm hakları saklıdır.</p>
+      <a href="#" class="footer-logo">
+        <img src="logo.jpg" alt="digoone" />
+      </a>
+      <div class="footer-links">
+        <a href="#" onclick="openModal('editorModal')">Entry Ekle</a>
+        <a href="#" onclick="exportPostsJS()">posts.js İndir (Git İçin)</a>
+      </div>
     </div>
   </footer>
 
-  <div class="modal-backdrop" id="postModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal">
-      <div class="modal-top">
-        <span class="post-cat" id="modalCategory"></span>
-        <button class="close-btn" id="closeModalBtn" type="button" aria-label="Kapat">✕</button>
-      </div>
-      <h2 id="modalTitle"></h2>
-      <div class="modal-meta" id="modalMeta"></div>
-      <div class="modal-body" id="modalBody"></div>
+  <!-- Yazı Okuma Modalı -->
+  <div id="readerModal" class="modal">
+    <div class="modal-card reader-card">
+      <button class="modal-close" onclick="closeModal('readerModal')">✕</button>
+      <div id="readerContent"></div>
     </div>
   </div>
 
-  <script>
-    const BLOG_POSTS = [
-      {
-        id: 1,
-        title: "Kişisel Asistanlardan Otonom İş Akışlarına: Yapay Zekada Yeni Dönem",
-        category: "Yapay Zeka",
-        date: "20 Kasım 2026",
-        readTime: "5 dk okuma",
-        featured: true,
-        excerpt: "Tekil istemlerle çalışan araçlardan bağlamı koruyan, adım adım planlama yapan iş akışlarına geçişi inceliyoruz.",
-        content: [
-          "Yapay zeka araçlarının günlük üretkenlikteki rolü yalnızca metin veya kod taslağı üretmenin ötesine geçti. Modern sistemler artık birden fazla adımı birbirine bağlayarak araştırma, özetleme ve düzenleme süreçlerini tek bir akışta birleştirebiliyor.",
-          "Ancak hız kazancı kadar kontrol edilebilirlik de kritik hale geldi. En verimli kurgularda insan denetimi kritik karar noktalarında devreye girerken, tekrarlayan veri toplama ve biçimlendirme adımları otomasyona bırakılıyor.",
-          "Gelecek dönemde fark yaratan ekipler, en karmaşık modeli kullananlar değil; net girdiler, doğrulanabilir kaynaklar ve sade süreçler kuranlar olacak."
-        ]
-      },
-      {
-        id: 2,
-        title: "Dijital Tasarımda Sadeleşme: Hız, Odak ve Net Hiyerarşi",
-        category:
+  <!-- Yeni Entry / Post Ekleme Modalı -->
+  <div id="editorModal" class="modal">
+    <div class="modal-card editor-card">
+      <button class="modal-close" onclick="closeModal('editorModal')">✕</button>
+      <h2>Yeni Blog Yazısı / Entry Ekle</h2>
+      <p class="modal-sub">Yazınızı ekledikten sonra alt kısımdaki <strong>"posts.js İndir"</strong> butonuyla güncel dosyayı alıp Git deponuza yükleyebilirsiniz.</p>
+      
+      <form id="postForm" class="editor-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Başlık</label>
+            <input type="text" id="postTitle" placeholder="Örn: Yapay Zeka Ajanları İş Akışlarını Nasıl Değiştiriyor?" required />
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select id="postCategory">
+              <option value="Yapay Zeka">Yapay Zeka</option>
+              <option value="Yenilikler">Yenilikler</option>
+              <option value="Trendler">Trendler</option>
+              <option value="Dijital Yaşam">Dijital Yaşam</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Kapak Görseli URL (Boş bırakılırsa otomatik atanır)</label>
+            <input type="url" id="postImage" placeholder="https://images.unsplash.com/..." />
+          </div>
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="postFeatured" /> Öne Çıkanlarda Göster
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Kısa Özet (Kartlarda görünür)</label>
+          <textarea id="postExcerpt" rows="2" placeholder="Yazının 1-2 cümlelik çarpıcı özeti..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>İçerik (Paragraflar arası boşluk bırakabilirsiniz)</label>
+          <textarea id="postBody" rows="8" placeholder="Yazınızın tam metnini buraya girin..." required></textarea>
+        </div>
+
+        <div class="editor-actions">
+          <button type="button" class="btn-outline" onclick="exportPostsJS()">Git İçin posts.js İndir</button>
+          <button type="submit" class="btn-primary">Yayınla</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="posts.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

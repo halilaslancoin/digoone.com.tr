@@ -70,8 +70,8 @@ body {
 }
 
 .brand-logo img {
-  height: 44px;
-  width: auto;
+  height: 62px;
+  width: 210px;
   object-fit: contain;
   mix-blend-mode: multiply;
   border-radius: 6px;

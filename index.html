@@ -3,117 +3,1268 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>digoone — Digital Go One </title>
+  <title>MülkAkıllı — digoone Yapay Zeka Destekli Mülk Yönetim SaaS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #f4f6fa;
+      --bg-card: #ffffff;
+      --bg-subtle: #f8fafc;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #4672b4;
+      --blue-soft: #eef3fa;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --amber: #d97706;
+      --amber-soft: #fef3c7;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --pink: #db2777;
+      --pink-soft: #fce7f3;
+      --shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 12px 30px rgba(15, 23, 42, 0.07);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .topbar {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .topbar-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      background: #ffffff;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .brand-logo-img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+
+    .product-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .product-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+    }
+
+    .btn-outline {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-subtle);
+    }
+
+    .btn-dark {
+      background: #0f172a;
+      color: #ffffff;
+    }
+
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    .wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Pastel Kısayol Kartları */
+    .pastel-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .pastel-card {
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+
+    .pastel-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pastel-peach { background: #fff1eb; }
+    .pastel-sky { background: #eaf4ff; }
+    .pastel-lilac { background: #f3ecff; }
+    .pastel-mint { background: #e8faf0; }
+    .pastel-amber { background: #fef7e0; }
+    .pastel-rose { background: #ffeef4; }
+
+    .pastel-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .pastel-num {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .pastel-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    /* Web Dashboard Düzeni */
+    .web-grid {
+      display: grid;
+      grid-template-columns: 230px 1fr 310px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .sidebar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-item {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--text-main);
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-subtle);
+    }
+
+    .nav-item.active {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .badge-pill {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 18px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .card-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    th {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+
+    .st-late { background: var(--red-soft); color: var(--red); }
+    .st-expected { background: var(--amber-soft); color: var(--amber); }
+    .st-paid { background: var(--green-soft); color: var(--green); }
+    .st-progress { background: var(--blue-soft); color: var(--blue); }
+
+    .right-rail {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .kpi-ring-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: var(--bg-subtle);
+      margin-bottom: 12px;
+    }
+
+    .kpi-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .ring-blue {
+      background: conic-gradient(var(--blue) 82%, #e2e8f0 0);
+      position: relative;
+    }
+
+    .ring-blue::after {
+      content: "%82";
+      position: absolute;
+      inset: 7px;
+      background: var(--bg-card);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .screening-box {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      background: var(--bg-subtle);
+    }
+
+    .score-pill {
+      display: inline-block;
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 800;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* Mobil Kiracı & Bakım Asistanı Simülatörü */
+    .mobile-stage {
+      display: grid;
+      grid-template-columns: 390px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .phone-frame {
+      width: 390px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 10px solid #0f172a;
+      border-radius: 38px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .phone-header {
+      background: linear-gradient(135deg, #eef3fa 0%, #fff4eb 100%);
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phone-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .phone-logo {
+      height: 30px;
+      width: auto;
+      background: #ffffff;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .phone-body {
+      padding: 14px;
+      background: #f8fafc;
+      max-height: 640px;
+      overflow-y: auto;
+    }
+
+    .m-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .m-dark-card {
+      background: #0f172a;
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .ai-suggestion {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 11px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+    }
+
+    .chat-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      height: 220px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .msg {
+      max-width: 85%;
+      padding: 9px 12px;
+      border-radius: 12px;
+      font-size: 12.5px;
+    }
+
+    .msg-user {
+      align-self: flex-end;
+      background: var(--blue);
+      color: #ffffff;
+    }
+
+    .msg-ai {
+      align-self: flex-start;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .site-footer {
+      max-width: 1360px;
+      margin: 24px auto 32px;
+      padding: 16px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 80;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 440px;
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .field {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    .field input, .field select, .field textarea {
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 11px;
+      font-size: 13px;
+      font-family: inherit;
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+
+    @media (max-width: 1120px) {
+      .pastel-strip { grid-template-columns: repeat(3, 1fr); }
+      .web-grid { grid-template-columns: 1fr; }
+      .mobile-stage { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .pastel-strip { grid-template-columns: repeat(2, 1fr); }
+      .phone-frame { width: 100%; max-width: 390px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Sol Kenar Kaydırma Çizgisi ve Hareketli Kalem -->
-  <div class="scroll-pen-track" aria-hidden="true">
-    <svg id="scrollPenSvg" viewBox="0 0 90 1000" preserveAspectRatio="none">
-      <path id="scrollPenPath" d="" fill="none" stroke="url(#penStrokeGrad)" stroke-width="3" stroke-linecap="round" />
-      <defs>
-        <linearGradient id="penStrokeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#4672b4" stop-opacity="0.25" />
-          <stop offset="100%" stop-color="#4672b4" stop-opacity="0.95" />
-        </linearGradient>
-      </defs>
-    </svg>
-    <div id="scrollPenTip" class="scroll-pen-tip">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-        <path d="M17 3L21 7L8 20H4V16L17 3Z" fill="#4672b4" stroke="#2c4e82" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M14.5 5.5L18.5 9.5" stroke="#ffffff" stroke-width="1.5"/>
-        <circle cx="5.2" cy="18.8" r="1.4" fill="#111827"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- Üst Menü -->
-  <header class="navbar">
-    <div class="container nav-inner">
-      <a href="#" class="brand-logo" onclick="resetFilters()">
-        <img src="logo.jpg" alt="digoone logo" />
-      </a>
-
-      <nav class="nav-links" id="categoryNav">
-        <button class="nav-btn active" data-cat="Tümü">Tümü</button>
-        <button class="nav-btn" data-cat="Yapay Zeka">Yapay Zeka</button>
-        <button class="nav-btn" data-cat="Yenilikler">Yenilikler</button>
-        <button class="nav-btn" data-cat="Trendler">Trendler</button>
-        <button class="nav-btn" data-cat="Dijital Yaşam">Dijital Yaşam</button>
-      </nav>
-
-      <div class="nav-actions">
-        <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Yazı ara..." />
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-group">
+        <a href="#" class="brand-logo-link" title="digoone">
+          <img src="logo.jpg" alt="digoone logo" class="brand-logo-img" />
+        </a>
+        <div class="brand-divider"></div>
+        <div>
+          <div class="product-title">MülkAkıllı SaaS</div>
+          <div class="product-sub">Yapay Zeka Destekli Gayrimenkul &amp; Kiracı Yönetimi</div>
         </div>
-        <button class="btn-outline" id="themeToggle" title="Tema Değiştir">Koyu Mod</button>
-        <button class="btn-primary" id="openEditorBtn" style="display: none;">+ Yeni Entry</button>
+      </div>
+
+      <div class="mode-switch">
+        <button class="mode-btn active" id="tabWeb" onclick="switchPlatform('web')">Web Yönetim Paneli</button>
+        <button class="mode-btn" id="tabMobile" onclick="switchPlatform('mobile')">Mobil Kiracı &amp; YZ Asistan</button>
+      </div>
+
+      <div class="top-actions">
+        <button class="btn btn-outline" id="adminBtn" onclick="openAdminModal()">Yönetici Girişi</button>
+        <button class="btn btn-primary" onclick="openNewRequestModal()">+ Yeni Talep / Kira</button>
       </div>
     </div>
   </header>
 
-  <!-- Hero / Editoryal Başlık Alanı -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <div class="hero-avatar-wrap">
-        <img src="logo.jpg" alt="digoone" class="hero-logo-img" />
+  <main class="wrap">
+    <!-- Pastel Hızlı Özet Kartları -->
+    <section class="pastel-strip">
+      <div class="pastel-card pastel-peach" onclick="selectSection('maintenance')">
+        <div class="pastel-label">Bakım &amp; Onarım</div>
+        <div class="pastel-num" id="kpiMaintenance">14</div>
+        <div class="pastel-desc">Açık servis talebi</div>
       </div>
-      <span class="hero-badge">Yenilikler • Yapay Zeka • Trendler</span>
-      <h1 class="hero-title">DİGOONE</h1>
-      <p class="hero-desc">
-        Dijital dünyadaki değişimi yalın ve net analizlerle takip edin. Yapay zeka gelişmeleri, yeni nesil araçlar ve üretim trendleri tek bir editoryal akışta.
-      </p>
-      <div class="hero-social">
-        <span>Takip et:</span>
-        <a href="#" aria-label="X">𝕏</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="Instagram">IG</a>
+      <div class="pastel-card pastel-sky" onclick="selectSection('appointments')">
+        <div class="pastel-label">Randevular</div>
+        <div class="pastel-num">08</div>
+        <div class="pastel-desc">Ekspertiz &amp; teslim görüşmesi</div>
       </div>
-    </div>
-  </section>
+      <div class="pastel-card pastel-lilac" onclick="selectSection('documents')">
+        <div class="pastel-label">Sözleşme &amp; Belgeler</div>
+        <div class="pastel-num" id="kpiDocs">05</div>
+        <div class="pastel-desc">YZ ile sınıflandırılmış evrak</div>
+      </div>
+      <div class="pastel-card pastel-mint" onclick="selectSection('screening')">
+        <div class="pastel-label">Kiracı Başvuruları</div>
+        <div class="pastel-num">11</div>
+        <div class="pastel-desc">Kredi ve referans kontrolü</div>
+      </div>
+      <div class="pastel-card pastel-amber" onclick="selectSection('rents')">
+        <div class="pastel-label">Kira Tahsilatı</div>
+        <div class="pastel-num" id="kpiOverdue">3</div>
+        <div class="pastel-desc">Geciken / bekleyen ödeme</div>
+      </div>
+      <div class="pastel-card pastel-rose" onclick="selectSection('contractors')">
+        <div class="pastel-label">Yükleniciler</div>
+        <div class="pastel-num">09</div>
+        <div class="pastel-desc">Aktif usta ve teknik ekip</div>
+      </div>
+    </section>
 
-  <!-- Ana İçerik Akışı -->
-  <main class="main-content">
-    <div class="container">
+    <!-- WEB YÖNETİM PANELİ -->
+    <section id="webView" class="web-grid">
+      <aside class="sidebar">
+        <button class="nav-item active" data-sec="rents" onclick="selectSection('rents')">
+          <span>Kira &amp; Gider Takibi</span>
+          <span class="badge-pill" id="badgeRents">5</span>
+        </button>
+        <button class="nav-item" data-sec="maintenance" onclick="selectSection('maintenance')">
+          <span>Bakım Talepleri</span>
+          <span class="badge-pill" id="badgeMaint">3</span>
+        </button>
+        <button class="nav-item" data-sec="screening" onclick="selectSection('screening')">
+          <span>Kiracı Tarama</span>
+          <span class="badge-pill">842 Puan</span>
+        </button>
+        <button class="nav-item" data-sec="documents" onclick="selectSection('documents')">
+          <span>YZ Belge Merkezi</span>
+          <span class="badge-pill" id="badgeDocs">4</span>
+        </button>
+        <button class="nav-item" data-sec="appointments" onclick="selectSection('appointments')">
+          <span>Randevular</span>
+          <span class="badge-pill">Bugün 3</span>
+        </button>
+        <button class="nav-item" data-sec="contractors" onclick="selectSection('contractors')">
+          <span>Yükleniciler</span>
+          <span class="badge-pill">9 Aktif</span>
+        </button>
+      </aside>
 
-      <!-- Öne Çıkan Yazılar -->
-      <section id="featuredSection" class="section-block">
-        <h2 class="section-heading">Öne Çıkanlar</h2>
-        <div id="featuredMain" class="featured-main"></div>
-        <div id="featuredSub" class="featured-sub-grid"></div>
-      </section>
-
-      <!-- Güncel Yazılar -->
-      <section class="section-block">
-        <div class="section-header-row">
-          <h2 class="section-heading" id="latestHeading">Güncel Yazılar</h2>
-          <span class="post-count" id="postCount"></span>
+      <!-- Orta Çalışma Alanı -->
+      <div>
+        <div class="card" id="mainTableCard">
+          <div class="card-head">
+            <div>
+              <div class="card-title" id="sectionTitle">Kira &amp; Gider Tahsilat Akışı</div>
+              <div class="card-sub" id="sectionSub">Daire bazlı kira, aidat ve gider ödemelerini tek ekrandan yönetin</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <select id="statusFilter" onchange="renderActiveSection()" style="border:1px solid var(--border); border-radius:8px; padding:6px 10px; font-size:12.5px;">
+                <option value="ALL">Tüm Durumlar</option>
+                <option value="Gecikti">Gecikti</option>
+                <option value="Bekleniyor">Bekleniyor</option>
+                <option value="Ödendi">Ödendi</option>
+                <option value="İşlemde">İşlemde</option>
+              </select>
+            </div>
+          </div>
+          <div style="overflow-x:auto;" id="sectionBody"></div>
         </div>
-        <div id="latestGrid" class="latest-grid"></div>
-      </section>
+      </div>
 
-      <!-- Abonelik Alanı -->
-      <section class="subscribe-box">
-        <h3>Yeni yazılardan haberdar olun</h3>
-        <p>Haftalık yapay zeka ve dijital trend özetleri doğrudan e-posta kutunuza gelsin.</p>
-        <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Aboneliğiniz alındı!');">
-          <input type="email" placeholder="E-posta adresiniz" required />
-          <button type="submit" class="btn-dark">Abone Ol</button>
+      <!-- Sağ Analitik & Kiracı Tarama Alanı -->
+      <aside class="right-rail">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Tahsilat Performansı</div>
+            <span class="badge-pill">Kasım 2026</span>
+          </div>
+          <div class="kpi-ring-box">
+            <div class="kpi-circle ring-blue"></div>
+            <div>
+              <div style="font-size:13px; font-weight:700;">₺486.000 Tahsil Edildi</div>
+              <div style="font-size:12px; color:var(--text-muted);">Hedef: ₺592.000 • 134/160 Daire</div>
+            </div>
+          </div>
+          <div style="font-size:12.5px; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span>Zamanında Ödeme</span>
+            <strong style="color:var(--green);">%82</strong>
+          </div>
+          <div style="font-size:12.5px; color:var(--text-muted); display:flex; justify-content:space-between;">
+            <span>Bekleyen / Geciken</span>
+            <strong style="color:var(--red);">%18</strong>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Öne Çıkan Kiracı Taraması</div>
+            <span class="score-pill">842 / 850 İyi</span>
+          </div>
+          <div class="screening-box">
+            <div style="font-weight:700; font-size:14px;">Deniz Kaya</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Hedef: Sima Garden B Blok • Daire 14 (3+1)</div>
+            <div style="font-size:12px; margin-bottom:6px;">Ödeme Geçmişi: <strong>%96</strong> • Tahliye Kaydı: <strong>Yok</strong></div>
+            <div style="font-size:12px; margin-bottom:12px;">Aylık Gelir / Kira Oranı: <strong>3.4x</strong></div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-primary btn-sm" style="flex:1; justify-content:center;" onclick="alert('Deniz Kaya kiracı başvurusu onaylandı ve sözleşme taslağı oluşturuldu.')">Onayla</button>
+              <button class="btn btn-outline btn-sm" style="flex:1; justify-content:center;" onclick="alert('Ek gelir belgesi talep edildi.')">Evrak İste</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- MOBİL KİRACI & YZ ASİSTAN SİMÜLATÖRÜ -->
+    <section id="mobileView" class="mobile-stage" style="display:none;">
+      <div class="phone-frame">
+        <div class="phone-header">
+          <div class="phone-top-row">
+            <img src="logo.jpg" alt="digoone" class="phone-logo" />
+            <span class="badge-pill">Kiracı Uygulaması</span>
+          </div>
+          <div style="font-size:15px; font-weight:800;">Merhaba, Elif 👋</div>
+          <div style="font-size:12px; color:var(--text-muted);">Daire 4B • Mersin Yenişehir Rezidans</div>
+        </div>
+
+        <div class="phone-body">
+          <div class="m-dark-card">
+            <div style="font-size:11px; opacity:0.75; margin-bottom:4px;">YAKLAŞAN KİRA ÖDEMESİ</div>
+            <div style="display:flex; align-items:baseline; justify-content:space-between;">
+              <div style="font-size:22px; font-weight:800;" id="mobileRentAmount">₺28.500</div>
+              <span style="font-size:11.5px; background:rgba(255,255,255,0.14); padding:3px 8px; border-radius:999px;" id="mobileRentStatus">5 Gün Kaldı</span>
+            </div>
+            <button class="btn btn-primary btn-sm" style="width:100%; justify-content:center; margin-top:10px;" onclick="payMobileRent()">Kira Öde (Dijital Dekont)</button>
+          </div>
+
+          <div class="m-card">
+            <div style="font-size:13px; font-weight:700; margin-bottom:8px;">YZ Fotoğraf Analizi — Bakım Bildirimi</div>
+            <div class="ai-suggestion">
+              <span><strong>Olası Sorun:</strong> Su Sızıntısı</span>
+              <span class="status st-paid">%94 Güven</span>
+            </div>
+            <div class="ai-suggestion">
+              <span><strong>Kategori:</strong> Tesisat</span>
+              <span class="badge-pill">Banyo</span>
+            </div>
+            <div class="ai-suggestion">
+              <span><strong>Öncelik:</strong> Orta</span>
+              <button class="btn btn-outline btn-sm" onclick="submitAiMaintenance()">Talep Oluştur</button>
+            </div>
+          </div>
+
+          <div class="m-card">
+            <div style="font-size:13px; font-weight:700; margin-bottom:6px;">Kira Belgeleri &amp; Kurallar</div>
+            <div style="font-size:12px; color:var(--text-muted);">• Kira Sözleşmesi (İmzalı PDF)</div>
+            <div style="font-size:12px; color:var(--text-muted);">• Depozito Teslim Tutanağı</div>
+            <div style="font-size:12px; color:var(--text-muted);">• Site Yaşam &amp; Aidat Kuralları</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sağ Tarafta Etkileşimli YZ Mülk Asistanı -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Yapay Zeka Mülk Asistanı</div>
+            <div class="card-sub">Kira tarihi, depozito, site kuralları veya bakım süreçleri hakkında anında yanıt alın</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+          <button class="btn btn-outline btn-sm" onclick="askPreset('Kira son ödeme tarihi ne zaman?')">Kira son ödeme tarihi?</button>
+          <button class="btn btn-outline btn-sm" onclick="askPreset('Depozito iade şartları nelerdir?')">Depozito şartları?</button>
+          <button class="btn btn-outline btn-sm" onclick="askPreset('Banyo su kaçağı için ne yapmalıyım?')">Bakım süreci?</button>
+        </div>
+
+        <div class="chat-box" id="aiChatBox">
+          <div class="msg msg-ai">Merhaba! Daire 4B sözleşmeniz, kira takviminiz ve bakım taleplerinizle ilgili sorularınızı yanıtlayabilirim.</div>
+        </div>
+
+        <form style="display:flex; gap:8px;" onsubmit="handleChatSubmit(event)">
+          <input type="text" id="aiChatInput" placeholder="Sorunuzu yazın..." required style="flex:1; border:1px solid var(--border); border-radius:10px; padding:10px 12px; font-size:13px;" />
+          <button type="submit" class="btn btn-primary">Gönder</button>
         </form>
-      </section>
-
-    </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Alt Bilgi -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <p class="copyright">© 2026 digoone.com.tr — Tüm hakları saklıdır.</p>
-      <a href="#" class="footer-logo">
-        <img src="logo.jpg" alt="digoone" />
-      </a>
-      <div class="footer-
+  <footer class="footer site-footer">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="logo.jpg" alt="digoone" style="height:28px; width:auto; background:#fff; padding:2px 6px; border-radius:6px;" />
+      <span>© 2026 digoone.com.tr — MülkAkıllı Gayrimenkul Yönetim Ekosistemi</span>
+    </div>
+    <div>Web + Mobil Kiracı &amp; Bakım Asistanı</div>
+  </footer>
+
+  <!-- Yönetici Giriş Modalı -->
+  <div class="modal-backdrop" id="adminModal">
+    <div class="modal-box">
+      <div class="card-head">
+        <div class="card-title">Yönetici Girişi</div>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('adminModal')">✕</button>
+      </div>
+      <form onsubmit="handleAdminLogin(event)">
+        <div class="field">
+          <label>Kullanıcı Adı</label>
+          <input type="text" id="admUser" required placeholder="Kullanıcı adınız" />
+        </div>
+        <div class="field">
+          <label>Şifre</label>
+          <input type="password" id="admPass" required placeholder="Şifreniz" />
+        </div>
+        <p id="admErr" style="color:var(--red); font-size:12px; margin-bottom:10px; display:none;">Bilgiler eşleşmedi.</p>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Giriş Yap</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Yeni Kayıt Modalı -->
+  <div class="modal-backdrop" id="newItemModal">
+    <div class="modal-box">
+      <div class="card-head">
+        <div class="card-title">Yeni Kira / Bakım Kaydı</div>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('newItemModal')">✕</button>
+      </div>
+      <form onsubmit="handleNewItem(event)">
+        <div class="field">
+          <label>Tür</label>
+          <select id="itemType">
+            <option value="rent">Kira / Gider Kalemi</option>
+            <option value="maintenance">Bakım Talebi</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Kiracı / Birim</label>
+          <input type="text" id="itemTarget" required placeholder="Örn: Mert Yılmaz • Daire 08" />
+        </div>
+        <div class="field">
+          <label>Açıklama / Tutar</label>
+          <input type="text" id="itemDetail" required placeholder="Örn: ₺31.000 Kira veya Kombi Basınç Arızası" />
+        </div>
+        <div class="field">
+          <label>Durum</label>
+          <select id="itemStatus">
+            <option value="Bekleniyor">Bekleniyor</option>
+            <option value="Gecikti">Gecikti</option>
+            <option value="Ödendi">Ödendi</option>
+            <option value="İşlemde">İşlemde</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Kaydet</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_U_HASH = '12d848a0c38764f9d9566eb62f98f4a6b48276c1f2e08710b9e933be224b04c8';
+    const ADMIN_P_HASH = '84c7c2fa7703095619929756665493a30816e636120464e362c52d2759128541';
+
+    let activeSection = 'rents';
+    let isAdmin = sessionStorage.getItem('mulkakilli_admin') === '1';
+
+    const state = {
+      rents: [
+        { id: 1, name: 'Kira Sözleşmesi', party: 'Mert Yılmaz', unit: '103 • Sima Garden', due: '23.11.2026', amount: '₺32.500', status: 'Gecikti' },
+        { id: 2, name: 'Site Aidatı & Ortak Gider', party: 'Zeynep Arslan', unit: '205 • Sima Garden', due: '25.11.2026', amount: '₺4.200', status: 'Bekleniyor' },
+        { id: 3, name: 'Kira Sözleşmesi', party: 'Kemal Demir', unit: '402 • Yenişehir', due: '15.11.2026', amount: '₺29.000', status: 'Ödendi' },
+        { id: 4, name: 'Tesisat Gider Faturası', party: 'Akdeniz Tesisat', unit: '103 • Sima Garden', due: '24.11.2026', amount: '₺3.850', status: 'Bekleniyor' },
+        { id: 5, name: 'Kira Sözleşmesi', party: 'Selin Aydın', unit: '508 • Yenişehir', due: '10.11.2026', amount: '₺34.000', status: 'Ödendi' }
+      ],
+      maintenance: [
+        { id: 1, title: 'Banyo Lavabo Altı Su Sızıntısı', party: 'Elif (Daire 4B)', unit: 'Tesisat • YZ (%94)', due: 'Bugün 16:00', amount: 'Orta Öncelik', status: 'İşlemde' },
+        { id: 2, title: 'Kombi Isıtma Performans Kontrolü', party: 'Mert Yılmaz (103)', unit: 'Mekanik • YZ (%89)', due: 'Yarın 11:00', amount: 'Düşük Öncelik', status: 'Bekleniyor' },
+        { id: 3, title: 'Balkon Cam Balkon Fitil Değişimi', party: 'Selin Aydın (508)', unit: 'Doğrama • YZ (%91)', due: 'Tamamlandı', amount: 'Düşük Öncelik', status: 'Ödendi' }
+      ],
+      screening: [
+        { name: 'Deniz Kaya', target: 'Daire 14 (3+1)', score: '842 (İyi)', income: '₺112.000/ay', status: 'Ödendi' },
+        { name: 'Burak Öztürk', target: 'Daire 09 (2+1)', score: '765 (Orta)', income: '₺78.000/ay', status: 'Bekleniyor' }
+      ],
+      documents: [
+        { name: 'Kira Sözleşmesi — Daire 4B.pdf', cat: 'Sözleşme', aiTag: 'YZ: Kira Kontratı', date: '01.11.2026', status: 'Ödendi' },
+        { name: 'Depozito Teslim Tutanağı.pdf', cat: 'Depozito', aiTag: 'YZ: Güvence Bedeli', date: '01.11.2026', status: 'Ödendi' },
+        { name: 'DASK & Konut Poliçesi.pdf', cat: 'Sigorta', aiTag: 'YZ: Sigorta Belgesi', date: '12.10.2026', status: 'Bekleniyor' },
+        { name: 'Genel Kurul Karar Defteri.pdf', cat: 'Kural', aiTag: 'YZ: Site Kuralları', date: '05.09.2026', status: 'Ödendi' }
+      ],
+      appointments: [
+        { title: 'Tahliye & Teslim Kontrolü', party: 'Daire 12', unit: 'Ekspertiz', due: 'Bugün 14:30', amount: '30 dk', status: 'İşlemde' },
+        { title: 'Yeni Kiracı Ev Gösterimi', party: 'Deniz Kaya', unit: 'Daire 14', due: 'Bugün 17:00', amount: '45 dk', status: 'Bekleniyor' }
+      ],
+      contractors: [
+        { name: 'Akdeniz Su & Tesisat', branch: 'Tesisat / Sıhhi', sla: '2 Saat Yanıt', jobs: '24 Tamamlanan', status: 'Ödendi' },
+        { name: 'Toros İklimlendirme', branch: 'Kombi & Klima', sla: '4 Saat Yanıt', jobs: '18 Tamamlanan', status: 'İşlemde' }
+      ]
+    };
+
+    function sha256Fallback(str) {
+      function rightRotate(v, a) { return (v >>> a) | (v << (32 - a)); }
+      const maxWord = Math.pow(2, 32);
+      let result = '';
+      const words = [];
+      const asciiBitLength = str.length * 8;
+      let hash = (sha256Fallback.h = sha256Fallback.h || []);
+      const primeCounter = (sha256Fallback.k = sha256Fallback.k || []);
+      let isPrime = primeCounter.length;
+      const primes = {};
+      for (let c = 2; isPrime < 64; c++) {
+        if (!primes[c]) {
+          for (let i = 0; i < 313; i += c) primes[i] = c;
+          hash[isPrime] = (Math.pow(c, 0.5) * maxWord) | 0;
+          primeCounter[isPrime++] = (Math.pow(c, 1 / 3) * maxWord) | 0;
+        }
+      }
+      str += '\x80';
+      while ((str.length % 64) - 56) str += '\x00';
+      for (let i = 0; i < str.length; i++) {
+        const j = str.charCodeAt(i);
+        if (j >> 8) return '';
+        words[i >> 2] |= j << (((3 - i) % 4) * 8);
+      }
+      words[words.length] = (asciiBitLength / maxWord) | 0;
+      words[words.length] = asciiBitLength;
+      for (let j = 0; j < words.length;) {
+        const w = words.slice(j, (j += 16));
+        const oldHash = hash.slice(0);
+        hash = hash.slice(0, 8);
+        for (let i = 0; i < 64; i++) {
+          const w15 = w[i - 15], w2 = w[i - 2];
+          const a = hash[0], e = hash[4];
+          const temp1 = hash[7] + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) +
+            ((e & hash[5]) ^ (~e & hash[6])) + primeCounter[i] +
+            (w[i] = (i < 16) ? w[i] : (w[i - 16] + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) + w[i - 7] + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) | 0);
+          const temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+          hash = [(temp1 + temp2) | 0].concat(hash);
+          hash[4] = (hash[4] + temp1) | 0;
+        }
+        for (let i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+      }
+      for (let i = 0; i < 8; i++) {
+        for (let j = 3; j + 1; j--) {
+          const b = (hash[i] >> (j * 8)) & 255;
+          result += ((b < 16) ? 0 : '') + b.toString(16);
+        }
+      }
+      return result;
+    }
+
+    async function getHash(text) {
+      if (window.crypto && window.crypto.subtle && window.isSecureContext) {
+        const buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+      return sha256Fallback(unescape(encodeURIComponent(text)));
+    }
+
+    function statusClass(st) {
+      if (st === 'Gecikti') return 'st-late';
+      if (st === 'Bekleniyor') return 'st-expected';
+      if (st === 'Ödendi') return 'st-paid';
+      return 'st-progress';
+    }
+
+    function switchPlatform(mode) {
+      document.getElementById('tabWeb').classList.toggle('active', mode === 'web');
+      document.getElementById('tabMobile').classList.toggle('active', mode === 'mobile');
+      document.getElementById('webView').style.display = mode === 'web' ? 'grid' : 'none';
+      document.getElementById('mobileView').style.display = mode === 'mobile' ? 'grid' : 'none';
+    }
+
+    function selectSection(sec) {
+      switchPlatform('web');
+      activeSection = sec;
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.sec === sec));
+      renderActiveSection();
+    }
+
+    function renderActiveSection() {
+      const filter = document.getElementById('statusFilter').value;
+      const titleEl = document.getElementById('sectionTitle');
+      const subEl = document.getElementById('sectionSub');
+      const bodyEl = document.getElementById('sectionBody');
+
+      if (activeSection === 'rents') {
+        titleEl.textContent = 'Kira & Gider Tahsilat Akışı';
+        subEl.textContent = 'Daire bazlı kira, aidat ve gider ödemelerini tek ekrandan yönetin';
+        const rows = state.rents.filter(r => filter === 'ALL' || r.status === filter);
+        bodyEl.innerHTML = `
+          <table>
+            <thead><tr><th>Kalem</th><th>Kiracı / Cari</th><th>Birim</th><th>Vade</th><th>Tutar</th><th>Durum</th><th>İşlem</th></tr></thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td><strong>${r.name}</strong></td>
+                  <td>${r.party}</td>
+                  <td>${r.unit}</td>
+                  <td>${r.due}</td>
+                  <td><strong>${r.amount}</strong></td>
+                  <td><span class="status ${statusClass(r.status)}">${r.status}</span></td>
+                  <td>${r.status !== 'Ödendi' ? `<button class="btn btn-primary btn-sm" onclick="markPaid(${r.id})">Tahsil Et</button>` : '✓'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
+      } else if (activeSection === 'maintenance') {
+        titleEl.textContent = 'YZ Destekli Bakım & Onarım Talepleri';
+        subEl.textContent = 'Fotoğraf analizi ile sınıflandırılmış servis kayıtları ve usta atamaları';
+        bodyEl.innerHTML = `
+          <table>
+            <thead><tr><th>Talep</th><th>Kiracı</th><th>Sınıflandırma</th><th>Plan</th><th>Öncelik</th><th>Durum</th></tr></thead>
+            <tbody>
+              ${state.maintenance.map(m => `
+                <tr>
+                  <td><strong>${m.title}</strong></td>
+                  <td>${m.party}</td>
+                  <td>${m.unit}</td>
+                  <td>${m.due}</td>
+                  <td>${m.amount}</td>
+                  <td><span class="status ${statusClass(m.status)}">${m.status}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
+      } else if (activeSection === 'screening') {
+        titleEl.textContent = 'Kiracı Başvuru & Değerlendirme';
+        subEl.textContent = 'Gelir, ödeme geçmişi ve referans skoru ile hızlı kiracı onaylama';
+        bodyEl.innerHTML = `
+          <table>
+            <thead><tr><th>Aday</th><th>Hedef Birim</th><th>Skor</th><th>Aylık Gelir</th><th>Durum</th></tr></thead>
+            <tbody>
+              ${state.screening.map(s => `
+                <tr>
+                  <td><strong>${s.name}</strong></td>
+                  <td>${s.target}</td>
+                  <td><strong>${s.score}</strong></td>
+                  <td>${s.income}</td>
+                  <td><span class="status ${statusClass(s.status)}">${s.status}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
+      } else if (activeSection === 'documents') {
+        titleEl.textContent = 'YZ Belge Sınıflandırma Merkezi';
+        subEl.textContent = 'Sözleşme, depozito, sigorta ve kural dokümanlarının otomatik etiketlenmesi';
+        bodyEl.innerHTML = `
+          <table>
+            <thead><tr><th>Belge</th><th>Tür</th><th>YZ Etiketi</th><th>Tarih</th><th>Durum</th></tr></thead>
+            <tbody>
+              ${state.documents.map(d => `
+                <tr>
+                  <td><strong>${d.name}</strong></td>
+                  <td>${d.cat}</td>
+                  <td><span class="badge-pill">${d.aiTag}</span></td>
+                  <td>${d.date}</td>
+                  <td><span class="status ${statusClass(d.status)}">${d.status}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
+      } else if (activeSection === 'appointments') {
+        titleEl.textContent = 'Randevu & Teslim Planlaması';
+        subEl.textContent = 'Ev gösterimi, teslim tutanağı ve teknik randevular';
+        bodyEl.innerHTML = `
+          <table>
+            <thead><tr><th>Görüşme</th><th>Konu</th><th>Tip</th><th>Zaman</th><th>Süre</th><th>Durum</th></tr></thead>
+            <tbody>
+              ${state.appointments.map(a => `
+                <tr>
+                  <td><strong>${a.title}</strong></td>
+                  <td>${a.party}</td>
+                  <td>${a.unit}</td>
+                  <td>${a.due}</td>
+                  <td>${a.amount}</td>
+                  <td><span class="status ${statusClass(a.status)}">${a.status}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
+      } else {
+        titleEl.textContent = 'Yüklenici & Teknik Ekip Yönetimi';
+        subEl.textContent = 'Anlaşmalı ustalar, SLA yanıt süreleri ve iş emri performansı';
+        bodyEl.innerHTML = `
+          <table>
+            <thead><tr><th>Firma / Usta</th><th>Uzmanlık</th><th>Yanıt SLA</th><th>Geçmiş</th><th>Durum</th></tr></thead>
+            <tbody>
+              ${state.contractors.map(c => `
+                <tr>
+                  <td><strong>${c.name}</strong></td>
+                  <td>${c.branch}</td>
+                  <td>${c.sla}</td>
+                  <td>${c.jobs}</td>
+                  <td><span class="status ${statusClass(c.status)}">${c.status}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
+      }
+
+      const overdueCount = state.rents.filter(r => r.status === 'Gecikti').length;
+      document.getElementById('kpiOverdue').textContent = overdueCount;
+      document.getElementById('kpiMaintenance').textContent = 11 + state.maintenance.length;
+      document.getElementById('badgeRents').textContent = state.rents.length;
+      document.getElementById('badgeMaint').textContent = state.maintenance.length;
+      document.getElementById('badgeDocs').textContent = state.documents.length;
+    }
+
+    function markPaid(id) {
+      const item = state.rents.find(r => r.id === id);
+      if (item) item.status = 'Ödendi';
+      renderActiveSection();
+    }
+
+    function payMobileRent() {
+      document.getElementById('mobileRentStatus').textContent = 'Ödendi ✓';
+      alert('₺28.500 kira ödemeniz alındı ve dijital dekont oluşturuldu.');
+    }
+
+    function submitAiMaintenance() {
+      state.maintenance.unshift({
+        id: Date.now(),
+        title: 'Banyo Lavabo Altı Su Sızıntısı',
+        party: 'Elif (Daire 4B)',
+        unit: 'Tesisat • YZ (%94)',
+        due: 'Az önce',
+        amount: 'Orta Öncelik',
+        status: 'İşlemde'
+      });
+      renderActiveSection();
+      alert('YZ destekli bakım talebi oluşturuldu ve tesisat ekibine yönlendirildi.');
+    }
+
+    function askPreset(q) {
+      appendChat(q, 'user');
+      let reply = 'Daire 4B için kira son ödeme tarihi her ayın 15’idir; 5 gün tolerans süresi bulunur.';
+      if (q.toLowerCase().includes('depozito')) {
+        reply = 'Depozito, çıkışta yapılan hasar ve aidat/fatura mahsuplaşmasının ardından 14 iş günü içinde iade edilir.';
+      } else if (q.toLowerCase().includes('bakım')) {
+        reply = 'Fotoğraf yüklediğinizde yapay zeka sorunu tesisat/elektrik olarak etiketler ve size en uygun ustayı atar.';
+      }
+      setTimeout(() => appendChat(reply, 'ai'), 250);
+    }
+
+    function handleChatSubmit(e) {
+      e.preventDefault();
+      const inp = document.getElementById('aiChatInput');
+      const txt = inp.value.trim();
+      if (!txt) return;
+      askPreset(txt);
+      inp.value = '';
+    }
+
+    function appendChat(text, sender) {
+      const box = document.getElementById('aiChatBox');
+      const div = document.createElement('div');
+      div.className = `msg ${sender === 'user' ? 'msg-user' : 'msg-ai'}`;
+      div.textContent = text;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function openAdminModal() {
+      if (isAdmin) {
+        isAdmin = false;
+        sessionStorage.removeItem('mulkakilli_admin');
+        updateAdminLabel();
+        return;
+      }
+      document.getElementById('admErr').style.display = 'none';
+      document.getElementById('adminModal').classList.add('open');
+    }
+
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('admUser').value.trim();
+      const p = document.getElementById('admPass').value;
+      if (await getHash(u) === ADMIN_U_HASH && await getHash(p) === ADMIN_P_HASH) {
+        isAdmin = true;
+        sessionStorage.setItem('mulkakilli_admin', '1');
+        closeModal('adminModal');
+        updateAdminLabel();
+      } else {
+        document.getElementById('admErr').style.display = 'block';
+      }
+    }
+
+    function updateAdminLabel() {
+      document.getElementById('adminBtn').textContent = isAdmin ? 'Yönetici Çıkış' : 'Yönetici Girişi';
+    }
+
+    function openNewRequestModal() {
+      document.getElementById('newItemModal').classList.add('open');
+    }
+
+    function handleNewItem(e) {
+      e.preventDefault();
+      const type = document.getElementById('itemType').value;
+      const target = document.getElementById('itemTarget').value.trim();
+      const detail = document.getElementById('itemDetail').value.trim();
+      const status = document.getElementById('itemStatus').value;
+
+      if (type === 'rent') {
+        state.rents.unshift({
+          id: Date.now(),
+          name: 'Kira / Gider Kalemi',
+          party: target,
+          unit: 'Portföy',
+          due: '28.11.2026',
+          amount: detail,
+          status
+        });
+        selectSection('rents');
+      } else {
+        state.maintenance.unshift({
+          id: Date.now(),
+          title: detail,
+          party: target,
+          unit: 'YZ Sınıflandırma',
+          due: 'Bugün',
+          amount: 'Orta Öncelik',
+          status
+        });
+        selectSection('maintenance');
+      }
+      e.target.reset();
+      closeModal('newItemModal');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    updateAdminLabel();
+    renderActiveSection();
+  </script>
+</body>
+</html>

@@ -7,9 +7,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
+
+  <!-- Sol Kenar Kaydırma Çizgisi ve Hareketli Kalem -->
+  <div class="scroll-pen-track" aria-hidden="true">
+    <svg id="scrollPenSvg" viewBox="0 0 90 1000" preserveAspectRatio="none">
+      <path id="scrollPenPath" d="" fill="none" stroke="url(#penStrokeGrad)" stroke-width="3" stroke-linecap="round" />
+      <defs>
+        <linearGradient id="penStrokeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#4672b4" stop-opacity="0.25" />
+          <stop offset="100%" stop-color="#4672b4" stop-opacity="0.95" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div id="scrollPenTip" class="scroll-pen-tip">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M17 3L21 7L8 20H4V16L17 3Z" fill="#4672b4" stroke="#2c4e82" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M14.5 5.5L18.5 9.5" stroke="#ffffff" stroke-width="1.5"/>
+        <circle cx="5.2" cy="18.8" r="1.4" fill="#111827"/>
+      </svg>
+    </div>
+  </div>
 
   <!-- Üst Menü -->
   <header class="navbar">
@@ -92,4 +112,8 @@
   <!-- Alt Bilgi -->
   <footer class="footer">
     <div class="container footer-inner">
-      <p class="copyright
+      <p class="copyright">© 2026 digoone.com.tr — Tüm hakları saklıdır.</p>
+      <a href="#" class="footer-logo">
+        <img src="logo.jpg" alt="digoone" />
+      </a>
+      <div class="footer-

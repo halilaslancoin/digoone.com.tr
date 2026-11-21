@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
 
@@ -15,7 +15,7 @@
   <header class="navbar">
     <div class="container nav-inner">
       <a href="#" class="brand-logo" onclick="resetFilters()">
-        <img src="logo.jpeg" alt="digoone logo" />
+        <img src="logo.jpg" alt="digoone logo" />
       </a>
 
       <nav class="nav-links" id="categoryNav">
@@ -31,7 +31,7 @@
           <input type="text" id="searchInput" placeholder="Yazı ara..." />
         </div>
         <button class="btn-outline" id="themeToggle" title="Tema Değiştir">Koyu Mod</button>
-        <button class="btn-primary" id="openEditorBtn">+ Yeni Entry</button>
+        <button class="btn-primary" id="openEditorBtn" style="display: none;">+ Yeni Entry</button>
       </div>
     </div>
   </header>
@@ -40,7 +40,7 @@
   <section class="hero">
     <div class="container hero-inner">
       <div class="hero-avatar-wrap">
-        <img src="logo.jpeg" alt="digoone" class="hero-logo-img" />
+        <img src="logo.jpg" alt="digoone" class="hero-logo-img" />
       </div>
       <span class="hero-badge">Yenilikler • Yapay Zeka • Trendler</span>
       <h1 class="hero-title">DİGOONE</h1>
@@ -60,14 +60,14 @@
   <main class="main-content">
     <div class="container">
 
-      <!-- Öne Çıkan Yazılar (Alisha Tarzı 1 Büyük + 2 Orta Kart) -->
+      <!-- Öne Çıkan Yazılar -->
       <section id="featuredSection" class="section-block">
         <h2 class="section-heading">Öne Çıkanlar</h2>
         <div id="featuredMain" class="featured-main"></div>
         <div id="featuredSub" class="featured-sub-grid"></div>
       </section>
 
-      <!-- Güncel Yazılar (2 Sütunlu Grid) -->
+      <!-- Güncel Yazılar -->
       <section class="section-block">
         <div class="section-header-row">
           <h2 class="section-heading" id="latestHeading">Güncel Yazılar</h2>
@@ -92,80 +92,4 @@
   <!-- Alt Bilgi -->
   <footer class="footer">
     <div class="container footer-inner">
-      <p class="copyright">© 2026 digoone.com.tr — Tüm hakları saklıdır.</p>
-      <a href="#" class="footer-logo">
-        <img src="logo.jpg" alt="digoone" />
-      </a>
-      <div class="footer-links">
-        <a href="#" onclick="openModal('editorModal')">Entry Ekle</a>
-        <a href="#" onclick="exportPostsJS()">posts.js İndir (Git İçin)</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Yazı Okuma Modalı -->
-  <div id="readerModal" class="modal">
-    <div class="modal-card reader-card">
-      <button class="modal-close" onclick="closeModal('readerModal')">✕</button>
-      <div id="readerContent"></div>
-    </div>
-  </div>
-
-  <!-- Yeni Entry / Post Ekleme Modalı -->
-  <div id="editorModal" class="modal">
-    <div class="modal-card editor-card">
-      <button class="modal-close" onclick="closeModal('editorModal')">✕</button>
-      <h2>Yeni Blog Yazısı / Entry Ekle</h2>
-      <p class="modal-sub">Yazınızı ekledikten sonra alt kısımdaki <strong>"posts.js İndir"</strong> butonuyla güncel dosyayı alıp Git deponuza yükleyebilirsiniz.</p>
-      
-      <form id="postForm" class="editor-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Başlık</label>
-            <input type="text" id="postTitle" placeholder="Örn: Yapay Zeka Ajanları İş Akışlarını Nasıl Değiştiriyor?" required />
-          </div>
-          <div class="form-group">
-            <label>Kategori</label>
-            <select id="postCategory">
-              <option value="Yapay Zeka">Yapay Zeka</option>
-              <option value="Yenilikler">Yenilikler</option>
-              <option value="Trendler">Trendler</option>
-              <option value="Dijital Yaşam">Dijital Yaşam</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Kapak Görseli URL (Boş bırakılırsa otomatik atanır)</label>
-            <input type="url" id="postImage" placeholder="https://images.unsplash.com/..." />
-          </div>
-          <div class="form-group checkbox-group">
-            <label>
-              <input type="checkbox" id="postFeatured" /> Öne Çıkanlarda Göster
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Kısa Özet (Kartlarda görünür)</label>
-          <textarea id="postExcerpt" rows="2" placeholder="Yazının 1-2 cümlelik çarpıcı özeti..." required></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>İçerik (Paragraflar arası boşluk bırakabilirsiniz)</label>
-          <textarea id="postBody" rows="8" placeholder="Yazınızın tam metnini buraya girin..." required></textarea>
-        </div>
-
-        <div class="editor-actions">
-          <button type="button" class="btn-outline" onclick="exportPostsJS()">Git İçin posts.js İndir</button>
-          <button type="submit" class="btn-primary">Yayınla</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script src="posts.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
+      <p class="copyright
